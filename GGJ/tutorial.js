@@ -47,6 +47,7 @@ function Player(node){
 	this.suspicion = 3; 
 	this.timer = 5000;
 	this.respawnTime = -1;
+	this.facingRight = true;
 	
 
 	// This function damage the ship and return true if this cause the ship to die 
@@ -238,119 +239,116 @@ $(function(){
 			$("#lifeHUD").html("life: "+$("#player")[0].player.replay);
 			$("#timerHUD").html("time: "+$("#player")[0].player.timer);
 			//Update the movement of the ship:
-			if(!playerHit){
-				$("#player")[0].player.update();
-				if(jQuery.gameQuery.keyTracker[65]){ //this is left! (a)
-					var nextpos = $("#player").x()-5;
-					if(nextpos > 0){
-						$("#player").x(nextpos);
-					}
+			
+			$("#player")[0].player.update();
+			if(jQuery.gameQuery.keyTracker[65]){ //this is left! (a)
+				var nextpos = $("#player").x()-5;
+				if(nextpos > 0){
+					$("#player").x(nextpos);
 				}
-				if(jQuery.gameQuery.keyTracker[68]){ //this is right! (d)
-					var nextpos = $("#player").x()+5;
-					if(nextpos < PLAYGROUND_WIDTH - 100){
-						$("#player").x(nextpos);
-					}
+				$("#player")[0].player.facingRight = false;
+			}
+			if(jQuery.gameQuery.keyTracker[68]){ //this is right! (d)
+				var nextpos = $("#player").x()+5;
+				if(nextpos < PLAYGROUND_WIDTH - 100){
+					$("#player").x(nextpos);
 				}
-			} else {
-				var posx = $("#player").x()-5;
-				$("#player").x(posx);
+				$("#player")[0].player.facingRight = true;
 			}
 			
 			// //Update the movement of the enemies
-			// $(".enemy").each(function(){
-			// 		this.enemy.update($("#player"));
-			// 		var posx = $(this).x();
-			// 		if((posx + 100) < 0){
-			// 			$(this).remove();
-			// 			return;
-			// 		}
-			// 		//Test for collisions
-			// 		var collided = $(this).collision("#playerBody,."+$.gQ.groupCssClass);
-			// 		if(collided.length > 0){
-			// 			if(this.enemy instanceof Bossy){
-			// 					$(this).setAnimation(enemies[2]["explode"], function(node){$(node).remove();});
-			// 					$(this).css("width", 150);
-			// 			} else if(this.enemy instanceof Brainy) {
-			// 				$(this).setAnimation(enemies[1]["explode"], function(node){$(node).remove();});
-			// 				$(this).css("width", 150);
-			// 			} else {
-			// 				$(this).setAnimation(enemies[0]["explode"], function(node){$(node).remove();});
-			// 				$(this).css("width", 200);
-			// 			}
-			// 			$(this).removeClass("enemy");
-			// 			//The player has been hit!
-			// 			if($("#player")[0].player.damage()){
-			// 				explodePlayer($("#player"));
-			// 			}
-			// 		}
-			// 		//Make the enemy fire
-			// 		if(this.enemy instanceof Brainy){
-			// 			if(Math.random() < 0.05){
-			// 				var enemyposx = $(this).x();
-			// 				var enemyposy = $(this).y();
-			// 				var name = "enemiesMissile_"+Math.ceil(Math.random()*1000);
-			// 				$("#enemiesMissileLayer").addSprite(name,{animation: missile["enemies"], posx: enemyposx, posy: enemyposy + 20, width: 30,height: 15});
-			// 				$("#"+name).addClass("enemiesMissiles");
-			// 			}
-			// 		}
-			// 	});
-			
-			//Update the movement of the missiles
-			// $(".playerMissiles").each(function(){
-			// 		var posx = $(this).x();
-			// 		if(posx > PLAYGROUND_WIDTH){
-			// 			$(this).remove();
-			// 			return;
-			// 		}
-			// 		$(this).x(MISSILE_SPEED, true);
-			// 		//Test for collisions
-			// 		var collided = $(this).collision(".enemy,."+$.gQ.groupCssClass);
-			// 		if(collided.length > 0){
-			// 			//An enemy has been hit!
-			// 			collided.each(function(){
-			// 					if($(this)[0].enemy.damage()){
-			// 						if(this.enemy instanceof Bossy){
-			// 								$(this).setAnimation(enemies[2]["explode"], function(node){$(node).remove();});
-			// 								$(this).css("width", 150);
-			// 						} else if(this.enemy instanceof Brainy) {
-			// 							$(this).setAnimation(enemies[1]["explode"], function(node){$(node).remove();});
-			// 							$(this).css("width", 150);
-			// 						} else {
-			// 							$(this).setAnimation(enemies[0]["explode"], function(node){$(node).remove();});
-			// 							$(this).css("width", 200);
-			// 						}
-			// 						$(this).removeClass("enemy");
-			// 					}
-			// 				})
-			// 			$(this).setAnimation(missile["playerexplode"], function(node){$(node).remove();});
-			// 			$(this).css("width", 38);
-			// 			$(this).css("height", 23);
-			// 			$(this).y(-7, true);
-			// 			$(this).removeClass("playerMissiles");
-			// 		}
-			// 	});
-			// $(".enemiesMissiles").each(function(){
-			// 		var posx = $(this).x();
-			// 		if(posx < 0){
-			// 			$(this).remove();
-			// 			return;
-			// 		}
-			// 		$(this).x(-MISSILE_SPEED, true);
-			// 		//Test for collisions
-			// 		var collided = $(this).collision("#playerBody,."+$.gQ.groupCssClass);
-			// 		if(collided.length > 0){
-			// 			//The player has been hit!
-			// 			collided.each(function(){
-			// 					if($("#player")[0].player.damage()){
-			// 						explodePlayer($("#player"));
-			// 					}
-			// 				})
-			// 			//$(this).remove();
-			// 			$(this).setAnimation(missile["enemiesexplode"], function(node){$(node).remove();});
-			// 			$(this).removeClass("enemiesMissiles");
-			// 		}
-			// 	});
+				// $(".enemy").each(function(){
+				// 		this.enemy.update($("#player"));
+				// 		var posx = $(this).x();
+				// 		if((posx + 100) < 0){
+				// 			$(this).remove();
+				// 			return;
+				// 		}
+				// 		//Test for collisions
+				// 		var collided = $(this).collision("#playerBody,."+$.gQ.groupCssClass);
+				// 		if(collided.length > 0){
+				// 			if(this.enemy instanceof Bossy){
+				// 					$(this).setAnimation(enemies[2]["explode"], function(node){$(node).remove();});
+				// 					$(this).css("width", 150);
+				// 			} else if(this.enemy instanceof Brainy) {
+				// 				$(this).setAnimation(enemies[1]["explode"], function(node){$(node).remove();});
+				// 				$(this).css("width", 150);
+				// 			} else {
+				// 				$(this).setAnimation(enemies[0]["explode"], function(node){$(node).remove();});
+				// 				$(this).css("width", 200);
+				// 			}
+				// 			$(this).removeClass("enemy");
+				// 			//The player has been hit!
+				// 			if($("#player")[0].player.damage()){
+				// 				explodePlayer($("#player"));
+				// 			}
+				// 		}
+				// 		//Make the enemy fire
+				// 		if(this.enemy instanceof Brainy){
+				// 			if(Math.random() < 0.05){
+				// 				var enemyposx = $(this).x();
+				// 				var enemyposy = $(this).y();
+				// 				var name = "enemiesMissile_"+Math.ceil(Math.random()*1000);
+				// 				$("#enemiesMissileLayer").addSprite(name,{animation: missile["enemies"], posx: enemyposx, posy: enemyposy + 20, width: 30,height: 15});
+				// 				$("#"+name).addClass("enemiesMissiles");
+				// 			}
+				// 		}
+				// 	});
+				//Update the movement of the missiles
+				// $(".playerMissiles").each(function(){
+				// 		var posx = $(this).x();
+				// 		if(posx > PLAYGROUND_WIDTH){
+				// 			$(this).remove();
+				// 			return;
+				// 		}
+				// 		$(this).x(MISSILE_SPEED, true);
+				// 		//Test for collisions
+				// 		var collided = $(this).collision(".enemy,."+$.gQ.groupCssClass);
+				// 		if(collided.length > 0){
+				// 			//An enemy has been hit!
+				// 			collided.each(function(){
+				// 					if($(this)[0].enemy.damage()){
+				// 						if(this.enemy instanceof Bossy){
+				// 								$(this).setAnimation(enemies[2]["explode"], function(node){$(node).remove();});
+				// 								$(this).css("width", 150);
+				// 						} else if(this.enemy instanceof Brainy) {
+				// 							$(this).setAnimation(enemies[1]["explode"], function(node){$(node).remove();});
+				// 							$(this).css("width", 150);
+				// 						} else {
+				// 							$(this).setAnimation(enemies[0]["explode"], function(node){$(node).remove();});
+				// 							$(this).css("width", 200);
+				// 						}
+				// 						$(this).removeClass("enemy");
+				// 					}
+				// 				})
+				// 			$(this).setAnimation(missile["playerexplode"], function(node){$(node).remove();});
+				// 			$(this).css("width", 38);
+				// 			$(this).css("height", 23);
+				// 			$(this).y(-7, true);
+				// 			$(this).removeClass("playerMissiles");
+				// 		}
+				// 	});
+				// $(".enemiesMissiles").each(function(){
+				// 		var posx = $(this).x();
+				// 		if(posx < 0){
+				// 			$(this).remove();
+				// 			return;
+				// 		}
+				// 		$(this).x(-MISSILE_SPEED, true);
+				// 		//Test for collisions
+				// 		var collided = $(this).collision("#playerBody,."+$.gQ.groupCssClass);
+				// 		if(collided.length > 0){
+				// 			//The player has been hit!
+				// 			collided.each(function(){
+				// 					if($("#player")[0].player.damage()){
+				// 						explodePlayer($("#player"));
+				// 					}
+				// 				})
+				// 			//$(this).remove();
+				// 			$(this).setAnimation(missile["enemiesexplode"], function(node){$(node).remove();});
+				// 			$(this).removeClass("enemiesMissiles");
+				// 		}
+				// 	});
 		}
 	}, REFRESH_RATE);
 	
