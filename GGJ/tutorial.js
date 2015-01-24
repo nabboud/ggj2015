@@ -35,7 +35,6 @@ function explodePlayer(playerNode){
 	playerHit = true;
 }
 
-
 // Game objects:
 function Player(node){
 
@@ -48,6 +47,7 @@ function Player(node){
 	this.timer = 5000;
 	this.respawnTime = -1;
 	this.facingRight = true;
+	this.running = false;
 	
 
 	// This function damage the ship and return true if this cause the ship to die 
@@ -400,13 +400,19 @@ $(function(){
 
 					break;
 				case 65: //this is left! (a)
-					$("#playerBody").setAnimation(playerAnimation["run-backward"]);
+					if (!$("#player")[0].player.running){
+						$("#player")[0].player.running = true;
+						$("#playerBody").setAnimation(playerAnimation["run-backward"]);
+					}
 					break;
 				case 87: //this is up! (w)
 
 					break;
 				case 68: //this is right (d)
-					$("#playerBody").setAnimation(playerAnimation["run-forward"]);
+					if(!$("#player")[0].player.running){
+						$("#player")[0].player.running = true;
+						$("#playerBody").setAnimation(playerAnimation["run-forward"]);
+					}
 					break;
 				case 83: //this is down! (s)
 
@@ -419,12 +425,14 @@ $(function(){
 		if(!gameOver && !playerHit){
 			switch(e.keyCode){
 				case 65: //this is left! (a)
+					$("#player")[0].player.running = false;
 					$("#playerBody").setAnimation(playerAnimation["idle-backward"]);
 					break;
 				case 87: //this is up! (w)
 
 					break;
 				case 68: //this is right (d)
+					$("#player")[0].player.running = false;
 					$("#playerBody").setAnimation(playerAnimation["idle-forward"]);
 					break;
 				case 83: //this is down! (s)
