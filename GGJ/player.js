@@ -13,6 +13,8 @@ function Player(node){
 	this.runInput = false;
 	this.facingRight = true;
 
+	this.currentAnimation = 'idle-forward';
+
 
 	this.friction = function() {
 		if (!this.runInput){
@@ -24,13 +26,13 @@ function Player(node){
 				this.speed -= Math.random()*3;
 			}
 		}
-	}
+		this.facingRight = (this.speed >= 0);
+	};
 
 	this.acceleration = function(direction){
 		return direction*Math.atan(Math.abs(this.speed)) + Math.random()*direction;
 	};
 	
-
 	// This function damage the ship and return true if this cause the ship to die 
 	this.damage = function(){
 		if(!this.grace){
@@ -60,6 +62,8 @@ function Player(node){
 	
 	this.update = function(){
 		this.timer--;
+		this.friction();
+		this.setAnimation();
 		if((this.respawnTime > 0) && (((new Date()).getTime()-this.respawnTime) > 3000)){
 
 			this.grace = false;
@@ -79,7 +83,6 @@ function Player(node){
 				this.runInput = true;
 				var acc = this.acceleration(-1);
 				this.speed += acc;
-				this.facingRight = (this.speed > 0);
 				//(this.speed > -(this.topSpeed - acc)) ? (this.speed -= acc) : -this.topSpeed;
 				break;
 			case 87: //this is up! (w)
@@ -89,16 +92,14 @@ function Player(node){
 				this.runInput = true;
 				var acc = this.acceleration(1);
 				this.speed += acc;
-				this.facingRight = (this.speed >= 0);
+				
 				//this.speed = (this.speed < (this.topSpeed - acc)) ? (this.speed += acc) : this.topSpeed;
 				break;
 			case 83: //this is down! (s)
 
 				break;
 		}
-
 		this.setAnimation();
-
 	};
 
 	this.keyup = function(keyCode){
@@ -118,20 +119,34 @@ function Player(node){
 
 				break;
 		}
-
-		this.setAnimation();
 	};
 
 	this.setAnimation = function(){
+		var newAnimation = "idle-forward";
 
-		if (this.speed > 0){
-			$("#playerBody").setAnimation(playerAnimation["run-forward"]);	
-		} else if (this.speed < 0){
-			$("#playerBody").setAnimation(playerAnimation["run-backward"]);
-		} else if (this.speed == 0 && this.facingRight){
-			$("#playerBody").setAnimation(playerAnimation["idle-forward"]);
+		if (this.speed > 20){
+			newAnimation = "run-forward";
+		} else if (this.speed > 0){
+
+			newAnimation = "walk-forward";
+
+		} else if (this.speed == 0){
+
+			if (this.facingRight){
+				newAnimation = "idle-forward";
+			} else {
+				newAnimation = "idle-backward";
+			}
+
+		} else if (this.speed > -20){
+			newAnimation = "walk-backward";
 		} else {
-			$("#playerBody").setAnimation(playerAnimation["idle-backward"]);
+			newAnimation = "run-backward";
+		}
+
+		if (newAnimation != this.currentAnimation){
+			$("#playerBody").setAnimation(playerAnimation[newAnimation]);
+			this.currentAnimation = newAnimation;
 		}
 	};
 
