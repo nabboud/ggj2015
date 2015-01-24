@@ -22,7 +22,6 @@ var bossName = null;
 var playerHit = false;
 var timeOfRespawn = 0;
 var gameOver = false;
-
 // Some hellper functions : 
 
 // Function to restart the game:
@@ -45,14 +44,16 @@ function Player(node){
 
 	this.grace = false;
 	this.replay = 3; 
-	this.shield = 3; 
+	this.suspicion = 3; 
+	this.timer = 5000;
 	this.respawnTime = -1;
 	
+
 	// This function damage the ship and return true if this cause the ship to die 
 	this.damage = function(){
 		if(!this.grace){
-			this.shield--;
-			if (this.shield == 0){
+			this.suspicion--;
+			if (this.suspicion == 0){
 				return true;
 			}
 			return false;
@@ -68,7 +69,7 @@ function Player(node){
 		}
 		
 		this.grace 	= true;
-		this.shield	= 3;
+		this.suspicion	= 3;
 		
 		this.respawnTime = (new Date()).getTime();
 		$(this.node).fadeTo(0, 0.5); 
@@ -76,7 +77,9 @@ function Player(node){
 	};
 	
 	this.update = function(){
+		this.timer--;
 		if((this.respawnTime > 0) && (((new Date()).getTime()-this.respawnTime) > 3000)){
+
 			this.grace = false;
 			$(this.node).fadeTo(500, 1); 
 			this.respawnTime = -1;
@@ -86,35 +89,34 @@ function Player(node){
 	return true;
 }
 
-//
-	// function Enemy(node){
-	// 	this.shield	= 2;
-	// 	this.speedx	= -5;
-	// 	this.speedy	= 0;
-	// 	this.node = $(node);
-		
-	// 	// deals with damage endured by an enemy
-	// 	this.damage = function(){
-	// 		this.shield--;
-	// 		if(this.shield == 0){
-	// 			return true;
-	// 		}
-	// 		return false;
-	// 	};
-		
-	// 	// updates the position of the enemy
-	// 	this.update = function(playerNode){
-	// 		this.updateX(playerNode);
-	// 		this.updateY(playerNode);
-	// 	};	
-	// 	this.updateX = function(playerNode){
-	// 		this.node.x(this.speedx, true);
-	// 	};
-	// 	this.updateY= function(playerNode){
-	// 		var newpos = parseInt(this.node.css("top"))+this.speedy;
-	// 		this.node.y(this.speedy, true);
-	// 	};
-	// }
+// function Enemy(node){
+// 	this.suspicion	= 2;
+// 	this.speedx	= -5;
+// 	this.speedy	= 0;
+// 	this.node = $(node);
+	
+// 	// deals with damage endured by an enemy
+// 	this.damage = function(){
+// 		this.suspicion--;
+// 		if(this.suspicion == 0){
+// 			return true;
+// 		}
+// 		return false;
+// 	};
+	
+// 	// updates the position of the enemy
+// 	this.update = function(playerNode){
+// 		this.updateX(playerNode);
+// 		this.updateY(playerNode);
+// 	};	
+// 	this.updateX = function(playerNode){
+// 		this.node.x(this.speedx, true);
+// 	};
+// 	this.updateY= function(playerNode){
+// 		var newpos = parseInt(this.node.css("top"))+this.speedy;
+// 		this.node.y(this.speedy, true);
+// 	};
+// }
 
 	// function Minion(node){
 	// 	this.node = $(node);
@@ -127,33 +129,34 @@ function Player(node){
 	// 	}
 	// }
 
-	// function Brainy(node){
-	// 	this.node = $(node);
-	// 	this.shield	= 5;
-	// 	this.speedy = 1;
-	// 	this.alignmentOffset = 5;
-	// }
-	// Brainy.prototype = new Enemy();
-	// Brainy.prototype.updateY = function(playerNode){
-	// 	if((this.node.y()+this.alignmentOffset) > $(playerNode).y()){
-	// 		this.node.y(-this.speedy, true);
-	// 	} else if((this.node.y()+this.alignmentOffset) < $(playerNode).y()){
-	// 		this.node.y(this.speedy, true);
-	// 	}
-	// }
 
-	// function Bossy(node){
-	// 	this.node = $(node);
-	// 	this.shield	= 20;
-	// 	this.speedx = -1;
-	// 	this.alignmentOffset = 35;
-	// }
-	// Bossy.prototype = new Brainy();
-	// Bossy.prototype.updateX = function(){
-	// 	if(this.node.x() > (PLAYGROUND_WIDTH - 200)){
-	// 		this.node.x(this.speedx, true)
-	// 	}
-	// }
+// function Brainy(node){
+// 	this.node = $(node);
+// 	this.suspicion	= 5;
+// 	this.speedy = 1;
+// 	this.alignmentOffset = 5;
+// }
+// Brainy.prototype = new Enemy();
+// Brainy.prototype.updateY = function(playerNode){
+// 	if((this.node.y()+this.alignmentOffset) > $(playerNode).y()){
+// 		this.node.y(-this.speedy, true);
+// 	} else if((this.node.y()+this.alignmentOffset) < $(playerNode).y()){
+// 		this.node.y(this.speedy, true);
+// 	}
+// }
+
+// function Bossy(node){
+// 	this.node = $(node);
+// 	this.suspicion	= 20;
+// 	this.speedx = -1;
+// 	this.alignmentOffset = 35;
+// }
+// Bossy.prototype = new Brainy();
+// Bossy.prototype.updateX = function(){
+// 	if(this.node.x() > (PLAYGROUND_WIDTH - 200)){
+// 		this.node.x(this.speedx, true)
+// 	}
+// }
 
 
 
@@ -213,8 +216,8 @@ $(function(){
 	
 	$("#player")[0].player = new Player($("#player"));
 	
-	//this is the HUD for the player life and shield
-	$("#overlay").append("<div id='shieldHUD'style='color: white; width: 100px; position: absolute; font-family: verdana, sans-serif;'></div><div id='lifeHUD'style='color: white; width: 100px; position: absolute; right: 0px; font-family: verdana, sans-serif;'></div>")
+	//this is the HUD for the player life and suspicion
+	$("#overlay").append("<div id='suspicionHUD'style='color: white; width: 100px; position: absolute; left: 0px; font-family: verdana, sans-serif;'></div><div id='timerHUD'style='color: white; width: 100px; position: absolute; right: 0px; font-family: verdana, sans-serif;'></div>")
 	
 	// this sets the id of the loading bar:
 	$.loadCallback(function(percent){
@@ -231,8 +234,9 @@ $(function(){
 	// this is the function that control most of the game logic 
 	$.playground().registerCallback(function(){
 		if(!gameOver){
-			$("#shieldHUD").html("shield: "+$("#player")[0].player.shield);
+			$("#suspicionHUD").html("suspicion: "+$("#player")[0].player.suspicion);
 			$("#lifeHUD").html("life: "+$("#player")[0].player.replay);
+			$("#timerHUD").html("time: "+$("#player")[0].player.timer);
 			//Update the movement of the ship:
 			if(!playerHit){
 				$("#player")[0].player.update();
