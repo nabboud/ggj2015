@@ -12,6 +12,7 @@ function Player(node){
 	this.topSpeed = 50;
 	this.runInput = false;
 	this.facingRight = true;
+	this.runSpeed = 35;
 
 	this.currentAnimation = 'idle-forward';
 
@@ -124,7 +125,7 @@ function Player(node){
 	this.setAnimation = function(){
 		var newAnimation = "idle-forward";
 
-		if (this.speed > 20){
+		if (this.speed > this.runSpeed){
 			newAnimation = "run-forward";
 		} else if (this.speed > 0){
 
@@ -138,7 +139,7 @@ function Player(node){
 				newAnimation = "idle-backward";
 			}
 
-		} else if (this.speed > -20){
+		} else if (this.speed > -this.runSpeed){
 			newAnimation = "walk-backward";
 		} else {
 			newAnimation = "run-backward";

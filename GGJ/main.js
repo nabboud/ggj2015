@@ -111,7 +111,7 @@ $(function(){
 	playerAnimation["idle-backward"] = new $.gQ.Animation({imageURL: "images/player-walk-backward.png"});
 
 	playerAnimation["walk-forward"]	 = new $.gQ.Animation({imageURL: "images/player-walk-forward.png" , numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
-	playerAnimation["walk-backward"]	 = new $.gQ.Animation({imageURL: "images/player-walk-backward.png", numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["walk-backward"] = new $.gQ.Animation({imageURL: "images/player-walk-backward.png", numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
 
 	playerAnimation["run-forward"]	 = new $.gQ.Animation({imageURL: "images/player-run-forward.png" , numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
 	playerAnimation["run-backward"]	 = new $.gQ.Animation({imageURL: "images/player-run-backward.png", numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
