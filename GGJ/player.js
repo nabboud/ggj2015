@@ -12,7 +12,7 @@ function Player(node){
 	this.topSpeed = 50;
 	this.runInput = false;
 	this.facingRight = true;
-	this.runSpeed = 35;
+	this.runSpeed = 25;
 
 	this.currentAnimation = 'idle-forward';
 

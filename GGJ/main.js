@@ -195,11 +195,11 @@ $(function(){
 	// this is the function that control most of the game logic 
 	$.playground().registerCallback(function(){
 		if(!gameOver){
-      var s = $('#crowd')[0].crowd.increasePlayerSuspsicion($('#player')[0].player);
-      $('#player')[0].player.increaseSuspicion(s);
+	      var s = $('#crowd')[0].crowd.increasePlayerSuspsicion($('#player')[0].player);
+	      $('#player')[0].player.increaseSuspicion(s);
 
 			$("#suspicionHUD").html("suspicion: "+$("#player")[0].player.suspicion);
-			$("#speedHUD").html("speed: "+$("#player")[0].player.speed);
+			$("#speedHUD").html("speed: " + ($("#player")[0].player.speed).toFixed(2));
 
  			$('#timerHUD')[0].watch.updateTimer();
 			
@@ -325,6 +325,8 @@ $(function(){
 				// 			$(this).removeClass("enemiesMissiles");
 				// 		}
 				// 	});
+		} else {
+			console.log('gameOver');
 		}
 	}, REFRESH_RATE);
 	
