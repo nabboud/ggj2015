@@ -1,9 +1,9 @@
 # ggj2015
 Global Game Jam 2015
 
-"Breakneck" is introduced to us with their super speed in a loading screen/during the initial storyline text/title screen.
+Breakneck/Turtleneck is introduced to us with their super speed and costume in a loading screen/during the initial storyline text/title screen.
 
-But! While out on a date at the mall, they see on TV that their nefarious archnemesis is defacing the Golden Cat Statue in the center of town. But phone booths were outlawed 10 years ago...
+But! While out on a date at the mall, about to reveal their secret identity to their date, they see on TV that their nefarious archnemesis, Rodentious, has called the townspeople to the Golden Cat Statue and is going to reveal their secret identity.
 
 They have to spring to action, in their normal clothes. Slowly, to avoid suspicion.
 
