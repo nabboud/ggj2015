@@ -3,7 +3,7 @@ function Watch(node) {
 
 this.node = node;
 this.timeOutput = 58;
-
+this.first = 0;
 this.start = function(){
 	this.startDate = new Date();
 };
@@ -11,12 +11,13 @@ this.start = function(){
 this.updateTimer = function(){
 	var tempDate = new Date();
 	var diff = +tempDate - +this.startDate;
+	console.log(diff);
 
 	var seconds = (diff/1000).toFixed(0) + '';
 	seconds = (seconds.length == 1) ? '0' + seconds : (seconds%60);
 
-	console.log();
-	if (seconds == '59'){
+	if (diff/1000 > 60){
+		this.startDate = new Date();
 		this.timeOutput++;
 		if(this.timeOutput == 60){
 			gameOver = true;

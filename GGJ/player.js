@@ -1,5 +1,5 @@
 function Player(node){
-  var SUSPICION_MAX = 24; // The game will end at MAX + 1
+  var SUSPICION_MAX = 99; // The game will end at MAX + 1
 
 	this.node = node;
 	//this.animations = animations;
@@ -30,6 +30,9 @@ function Player(node){
 	};
 
 	this.acceleration = function(direction){
+		if (Math.abs(this.speed) < 5){
+			return 3*direction;
+		}
 		return direction*Math.atan(Math.abs(this.speed)) + Math.random()*direction;
 	};
 	
