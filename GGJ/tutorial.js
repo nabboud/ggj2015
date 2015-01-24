@@ -44,7 +44,7 @@ function Player(node){
 
 	this.grace = false;
 	this.replay = 3; 
-	this.shield = 3; 
+	this.suspicion = 3; 
 	this.timer = 5000;
 	this.respawnTime = -1;
 	
@@ -52,8 +52,8 @@ function Player(node){
 	// This function damage the ship and return true if this cause the ship to die 
 	this.damage = function(){
 		if(!this.grace){
-			this.shield--;
-			if (this.shield == 0){
+			this.suspicion--;
+			if (this.suspicion == 0){
 				return true;
 			}
 			return false;
@@ -69,7 +69,7 @@ function Player(node){
 		}
 		
 		this.grace 	= true;
-		this.shield	= 3;
+		this.suspicion	= 3;
 		
 		this.respawnTime = (new Date()).getTime();
 		$(this.node).fadeTo(0, 0.5); 
@@ -90,15 +90,15 @@ function Player(node){
 }
 
 function Enemy(node){
-	this.shield	= 2;
+	this.suspicion	= 2;
 	this.speedx	= -5;
 	this.speedy	= 0;
 	this.node = $(node);
 	
 	// deals with damage endured by an enemy
 	this.damage = function(){
-		this.shield--;
-		if(this.shield == 0){
+		this.suspicion--;
+		if(this.suspicion == 0){
 			return true;
 		}
 		return false;
@@ -131,7 +131,7 @@ Minion.prototype.updateY = function(playerNode){
 
 function Brainy(node){
 	this.node = $(node);
-	this.shield	= 5;
+	this.suspicion	= 5;
 	this.speedy = 1;
 	this.alignmentOffset = 5;
 }
@@ -146,7 +146,7 @@ Brainy.prototype.updateY = function(playerNode){
 
 function Bossy(node){
 	this.node = $(node);
-	this.shield	= 20;
+	this.suspicion	= 20;
 	this.speedx = -1;
 	this.alignmentOffset = 35;
 }
@@ -230,8 +230,8 @@ $(function(){
 	
 	$("#player")[0].player = new Player($("#player"));
 	
-	//this is the HUD for the player life and shield
-	$("#overlay").append("<div id='timerHUD'style='color: white; width: 100px; position: absolute; right: 0px; font-family: verdana, sans-serif;'></div>")
+	//this is the HUD for the player life and suspicion
+	$("#overlay").append("<div id='suspicionHUD'style='color: white; width: 100px; position: absolute; left: 0px; font-family: verdana, sans-serif;'></div><div id='timerHUD'style='color: white; width: 100px; position: absolute; right: 0px; font-family: verdana, sans-serif;'></div>")
 	
 	// this sets the id of the loading bar:
 	$.loadCallback(function(percent){
@@ -248,7 +248,7 @@ $(function(){
 	// this is the function that control most of the game logic 
 	$.playground().registerCallback(function(){
 		if(!gameOver){
-			$("#shieldHUD").html("shield: "+$("#player")[0].player.shield);
+			$("#suspicionHUD").html("suspicion: "+$("#player")[0].player.suspicion);
 			$("#lifeHUD").html("life: "+$("#player")[0].player.replay);
 			$("#timerHUD").html("time: "+$("#player")[0].player.timer);
 			//Update the movement of the ship:
