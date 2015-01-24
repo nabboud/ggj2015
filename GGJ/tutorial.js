@@ -22,18 +22,13 @@ var bossName = null;
 var playerHit = false;
 var timeOfRespawn = 0;
 var gameOver = false;
+
 // Some hellper functions : 
 
 // Function to restart the game:
 function restartgame(){
 	window.location.reload();
 };
-
-function explodePlayer(playerNode){
-	playerNode.children().hide();
-	playerNode.addSprite("explosion",{animation: playerAnimation["explode"], width: 100, height: 26})
-	playerHit = true;
-}
 
 
 // function Enemy(node){
@@ -188,17 +183,30 @@ $(function(){
 			
 			$("#player")[0].player.update();
 			if(jQuery.gameQuery.keyTracker[65]){ //this is left! (a)
-				var nextpos = $("#player").x()-5;
+				var nextpos = $("#player").x()-$("#player")[0].player.speed;
 				if(nextpos > 0){
 					$("#player").x(nextpos);
 				}
 				$("#player")[0].player.facingRight = false;
 			}
 			if(jQuery.gameQuery.keyTracker[68]){ //this is right! (d)
-				var nextpos = $("#player").x()+5;
-				if(nextpos < PLAYGROUND_WIDTH - 100){
-					$("#player").x(nextpos);
+
+				console.log($('#player').x());
+
+				if ($('#player').x() >= 450){
+					var newPos = ($("#background1").x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
+					$("#background1").x(newPos);
+					
+					newPos = ($("#background2").x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
+					$("#background2").x(newPos);
+				} else {
+
+					var nextpos = $("#player").x()+$("#player")[0].player.speed;
+					if(nextpos < PLAYGROUND_WIDTH - 100){
+						$("#player").x(nextpos);
+					}
 				}
+
 				$("#player")[0].player.facingRight = true;
 			}
 			
@@ -226,7 +234,7 @@ $(function(){
 				// 			$(this).removeClass("enemy");
 				// 			//The player has been hit!
 				// 			if($("#player")[0].player.damage()){
-				// 				explodePlayer($("#player"));
+				// 				//explodePlayer($("#player"));
 				// 			}
 				// 		}
 				// 		//Make the enemy fire
@@ -287,7 +295,7 @@ $(function(){
 				// 			//The player has been hit!
 				// 			collided.each(function(){
 				// 					if($("#player")[0].player.damage()){
-				// 						explodePlayer($("#player"));
+				// 						//explodePlayer($("#player"));
 				// 					}
 				// 				})
 				// 			//$(this).remove();
@@ -326,17 +334,6 @@ $(function(){
 			
 		// }, 1000); //once per seconds is enough for this 
 	
-	//This is for the background animation
-		$.playground().registerCallback(function(){
-			//Offset all the pane:
-			var newPos = ($("#background1").x() - smallStarSpeed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
-			$("#background1").x(newPos);
-			
-			newPos = ($("#background2").x() - smallStarSpeed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
-			$("#background2").x(newPos);
-			
-		}, REFRESH_RATE);
-	
 	//this is where the keybinding occurs
 	$(document).keydown(function(e){
 		if(!gameOver && !playerHit){
@@ -350,6 +347,8 @@ $(function(){
 						$("#player")[0].player.running = true;
 						$("#playerBody").setAnimation(playerAnimation["run-backward"]);
 					}
+					$("#player")[0].player.speed++;
+
 					break;
 				case 87: //this is up! (w)
 
@@ -359,6 +358,7 @@ $(function(){
 						$("#player")[0].player.running = true;
 						$("#playerBody").setAnimation(playerAnimation["run-forward"]);
 					}
+					$("#player")[0].player.speed++;
 					break;
 				case 83: //this is down! (s)
 
@@ -369,9 +369,11 @@ $(function(){
 	//this is where the keybinding occurs
 	$(document).keyup(function(e){
 		if(!gameOver && !playerHit){
+
 			switch(e.keyCode){
 				case 65: //this is left! (a)
 					$("#player")[0].player.running = false;
+					$("#player")[0].player.speed = 0;
 					$("#playerBody").setAnimation(playerAnimation["idle-backward"]);
 					break;
 				case 87: //this is up! (w)
@@ -379,6 +381,7 @@ $(function(){
 					break;
 				case 68: //this is right (d)
 					$("#player")[0].player.running = false;
+					$("#player")[0].player.speed = 0;
 					$("#playerBody").setAnimation(playerAnimation["idle-forward"]);
 					break;
 				case 83: //this is down! (s)
