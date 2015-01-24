@@ -164,7 +164,7 @@ $(function(){
 	$("#player")[0].player = new Player($("#player"));
 	
 	//this is the HUD for the player life and suspicion
-	$("#overlay").append("<div id='suspicionHUD'style='color: white; width: 100px; position: absolute; left: 0px; font-family: verdana, sans-serif;'></div><div id='timerHUD'style='color: white; width: 100px; position: absolute; right: 0px; font-family: verdana, sans-serif;'></div>")
+	$("#overlay").append("<div id='suspicionHUD'style='color: black; width: 100px; position: absolute; left: 0px; font-family: verdana, sans-serif;'></div><div id='timerHUD'style='color: black; width: 100px; position: absolute; right: 0px; font-family: verdana, sans-serif;'></div>")
 	
 	// this sets the id of the loading bar:
 	$.loadCallback(function(percent){
