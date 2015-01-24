@@ -4,22 +4,14 @@ var PLAYGROUND_HEIGHT	= 400;
 var REFRESH_RATE		= 15;
 
 var GRACE		= 2000;
-var MISSILE_SPEED = 10; //px per frame
 
 /*Constants for the gameplay*/
 var smallStarSpeed    	= 1 //pixels per frame
-var mediumStarSpeed		= 3 //pixels per frame
-var bigStarSpeed		= 4 //pixels per frame
 
 // Gloabl animation holder
 var playerAnimation = new Array();
-var missile = new Array();
-var enemies = new Array(3); // There are three kind of enemies in the game
 
 // Game state
-var bossMode = false;
-var bossName = null;
-var playerHit = false;
 var timeOfRespawn = 0;
 var gameOver = false;
 var crowdOn = true; // include the crowd in the game
@@ -115,10 +107,10 @@ $(function(){
  
 	
 	// Player space shipannimations:
-	playerAnimation["idle-forward"]	 = new $.gQ.Animation({imageURL: "images/player-forward.png", numberOfFrame: 4, delta: 100, rate:30, type: $.gQ.ANIMATION_HORIZONTAL});
-	playerAnimation["idle-backward"] = new $.gQ.Animation({imageURL: "images/player-backward.png", numberOfFrame: 4, delta: 100, rate:30, type: $.gQ.ANIMATION_HORIZONTAL});
-	playerAnimation["run-forward"]	 = new $.gQ.Animation({imageURL: "images/player-run-forward.png" , numberOfFrame: 4, delta: 100, rate: 30, type: $.gQ.ANIMATION_HORIZONTAL});
-	playerAnimation["run-backward"]	 = new $.gQ.Animation({imageURL: "images/player-run-backward.png", numberOfFrame: 4, delta: 100, rate: 30, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["idle-forward"]	 = new $.gQ.Animation({imageURL: "images/player-forward.png", numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["idle-backward"] = new $.gQ.Animation({imageURL: "images/player-backward.png", numberOfFrame: 4, delta: 60, rate:10, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["run-forward"]	 = new $.gQ.Animation({imageURL: "images/player-run-forward.png" , numberOfFrame: 4, delta: 60, rate: 30, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["run-backward"]	 = new $.gQ.Animation({imageURL: "images/player-run-backward.png", numberOfFrame: 4, delta: 60, rate: 30, type: $.gQ.ANIMATION_HORIZONTAL});
 	
 	// //  List of enemies animations :
 		// // 1st kind of enemy:
@@ -153,8 +145,8 @@ $(function(){
 					.addGroup("actors", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
 					  .addGroup("crowd", {width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT})
 					  .addGroup("interactables",{width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
-						.addGroup("player", {posx: PLAYGROUND_WIDTH/2, posy: PLAYGROUND_HEIGHT - 120, width: 100, height: 100})
-							.addSprite("playerBody",{animation: playerAnimation["idle-forward"], posx: 0, posy: 0, width: 100, height: 100})
+						.addGroup("player", {posx: PLAYGROUND_WIDTH/2, posy: PLAYGROUND_HEIGHT - 120, width: 60, height: 100})
+							.addSprite("playerBody",{animation: playerAnimation["idle-forward"], posx: 0, posy: 0, width: 60, height: 100})
 						.end()
 					.end()
 					.addGroup("overlay",{width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT});

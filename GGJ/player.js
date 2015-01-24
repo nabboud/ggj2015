@@ -11,6 +11,7 @@ function Player(node){
 	this.speed = 0;
 	this.topSpeed = 50;
 	this.runInput = false;
+	this.facingRight = true;
 
 
 	this.friction = function() {
@@ -77,8 +78,8 @@ function Player(node){
 			case 65: //this is left! (a)
 				this.runInput = true;
 				var acc = this.acceleration(-1);
-				console.log('acceleration:', acc);
 				this.speed += acc;
+				this.facingRight = (this.speed > 0);
 				//(this.speed > -(this.topSpeed - acc)) ? (this.speed -= acc) : -this.topSpeed;
 				break;
 			case 87: //this is up! (w)
@@ -87,16 +88,14 @@ function Player(node){
 			case 68: //this is right (d)
 				this.runInput = true;
 				var acc = this.acceleration(1);
-				console.log('acceleration:', acc);
 				this.speed += acc;
+				this.facingRight = (this.speed >= 0);
 				//this.speed = (this.speed < (this.topSpeed - acc)) ? (this.speed += acc) : this.topSpeed;
 				break;
 			case 83: //this is down! (s)
 
 				break;
 		}
-
-		console.log('speed', this.speed);
 
 		this.setAnimation();
 
@@ -124,16 +123,18 @@ function Player(node){
 	};
 
 	this.setAnimation = function(){
-		$("#playerBody").setAnimation(playerAnimation["run-forward"]);
-		
-		$("#playerBody").setAnimation(playerAnimation["run-backward"]);
 
+		if (this.speed > 0){
+			$("#playerBody").setAnimation(playerAnimation["run-forward"]);	
+		} else if (this.speed < 0){
+			$("#playerBody").setAnimation(playerAnimation["run-backward"]);
+		} else if (this.speed == 0 && this.facingRight){
+			$("#playerBody").setAnimation(playerAnimation["idle-forward"]);
+		} else {
+			$("#playerBody").setAnimation(playerAnimation["idle-backward"]);
+		}
+	};
 
-		$("#playerBody").setAnimation(playerAnimation["idle-backward"]);
-
-		$("#playerBody").setAnimation(playerAnimation["idle-forward"]);
-	}
-	
 	return true;
 }
 
