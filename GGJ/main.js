@@ -156,6 +156,8 @@ $(function(){
 					.addGroup("overlay",{width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT});
 	
 	$("#player")[0].player = new Player($("#player"));
+	
+
 
   // Generate the crowd NPCs
   if (crowdOn) {
@@ -176,7 +178,7 @@ $(function(){
 
 	//this is the HUD for the player life and suspicion
 	$("#overlay").append("<div id='suspicionHUD'style='color: black; width: 150px; position: absolute; left: 0px; font-family: verdana, sans-serif;'></div><div id='speedHUD'style='color: black; width: 250px; position: absolute; left: 160px; font-family: verdana, sans-serif;'></div><div id='timerHUD'style='color: black; width: 100px; position: absolute; right: 0px; font-family: verdana, sans-serif;'></div>")
-	
+	$("#timerHUD")[0].watch = new Watch($("#timerHUD"));
 	// this sets the id of the loading bar:
 	$.loadCallback(function(percent){
 		//$("#loadingBar").width(400*percent);
@@ -187,6 +189,7 @@ $(function(){
 		$.playground().startGame(function(){
 			$("#welcomeScreen").fadeTo(1000,0,function(){$(this).remove();});
 		});
+		$("#timerHUD")[0].watch.start();
 	})
 	
 	// this is the function that control most of the game logic 
@@ -197,7 +200,9 @@ $(function(){
 
 			$("#suspicionHUD").html("suspicion: "+$("#player")[0].player.suspicion);
 			$("#speedHUD").html("speed: "+$("#player")[0].player.speed);
-			$("#timerHUD").html("time: "+$("#player")[0].player.timer);
+
+ 			$('#timerHUD')[0].watch.updateTimer();
+			
 			//Update the movement of the ship:
 			
 			$("#player")[0].player.update();

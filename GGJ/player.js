@@ -6,7 +6,6 @@ function Player(node){
 	this.grace = false;
 	this.replay = 3;
 	this.suspicion = 0; 
-	this.timer = 2000;
 	this.respawnTime = -1;
 	this.speed = 0;
 	this.topSpeed = 50;
@@ -15,7 +14,6 @@ function Player(node){
 	this.runSpeed = 35;
 
 	this.currentAnimation = 'idle-forward';
-
 
 	this.friction = function() {
 		if (!this.runInput){
@@ -62,7 +60,6 @@ function Player(node){
 	};
 	
 	this.update = function(){
-		this.timer--;
 		this.friction();
 		this.setAnimation();
 		if((this.respawnTime > 0) && (((new Date()).getTime()-this.respawnTime) > 3000)){
