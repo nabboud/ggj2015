@@ -182,34 +182,29 @@ $(function(){
 			//Update the movement of the ship:
 			
 			$("#player")[0].player.update();
-			if(jQuery.gameQuery.keyTracker[65]){ //this is left! (a)
-				var nextpos = $("#player").x()-$("#player")[0].player.speed;
+
+			if ($('#player').x() >= 450 && $("#player")[0].player.speed > 0){
+				var newPos = ($("#background1").x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
+				$("#background1").x(newPos);
+				
+				newPos = ($("#background2").x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
+				$("#background2").x(newPos);
+			} else {
+
+				var nextpos = $("#player").x() + $("#player")[0].player.speed;
 				if(nextpos > 0){
 					$("#player").x(nextpos);
 				}
-				$("#player")[0].player.facingRight = false;
+			}
+
+			$("#player")[0].player.friction();
+
+			if(jQuery.gameQuery.keyTracker[65]){ //this is left! (a)
+
 			}
 			if(jQuery.gameQuery.keyTracker[68]){ //this is right! (d)
 
-				if ($("#player")[0].player.facingRight && $("#player")[0].player.running){
 
-				}
-
-				if ($('#player').x() >= 450){
-					var newPos = ($("#background1").x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
-					$("#background1").x(newPos);
-					
-					newPos = ($("#background2").x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
-					$("#background2").x(newPos);
-				} else {
-
-					var nextpos = $("#player").x()+$("#player")[0].player.speed;
-					if(nextpos < PLAYGROUND_WIDTH - 100){
-						$("#player").x(nextpos);
-					}
-				}
-
-				$("#player")[0].player.facingRight = true;
 			}
 			
 			// //Update the movement of the enemies

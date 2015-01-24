@@ -8,8 +8,26 @@ function Player(node){
 	this.suspicion = 3; 
 	this.timer = 2000;
 	this.respawnTime = -1;
-	this.facingRight = true;
 	this.speed = 0;
+	this.topSpeed = 50;
+	this.runInput = false;
+
+
+	this.friction = function() {
+		if (!this.runInput){
+			if (Math.abs(this.speed) < 3){
+				this.speed = 0;
+			} else if (this.speed < 0){
+				this.speed += Math.random()*3;
+			} else {
+				this.speed -= Math.random()*3;
+			}
+		}
+	}
+
+	this.acceleration = function(direction){
+		return direction*Math.atan(Math.abs(this.speed)) + Math.random()*direction;
+	};
 	
 
 	// This function damage the ship and return true if this cause the ship to die 
@@ -49,67 +67,73 @@ function Player(node){
 		}
 	};
 
-	this.speedUp = function(){
-		this.running = true;
-		this.speed += 1;
-		if (this.speed > 15){
-			this.speed = 15;
+	this.keydown = function(keyCode){
+
+		switch(keyCode){
+			case 75: //this is shoot (k)
+				//shoot missile here
+
+				break;
+			case 65: //this is left! (a)
+				this.runInput = true;
+				var acc = this.acceleration(-1);
+				console.log('acceleration:', acc);
+				this.speed += acc;
+				//(this.speed > -(this.topSpeed - acc)) ? (this.speed -= acc) : -this.topSpeed;
+				break;
+			case 87: //this is up! (w)
+
+				break;
+			case 68: //this is right (d)
+				this.runInput = true;
+				var acc = this.acceleration(1);
+				console.log('acceleration:', acc);
+				this.speed += acc;
+				//this.speed = (this.speed < (this.topSpeed - acc)) ? (this.speed += acc) : this.topSpeed;
+				break;
+			case 83: //this is down! (s)
+
+				break;
 		}
 
-	};
+		console.log('speed', this.speed);
 
+		this.setAnimation();
 
-	this.keydown = function(keyCode){
-		// if(!gameOver && !playerHit){
-		// 	switch(keyCode){
-		// 		case 75: //this is shoot (k)
-		// 			//shoot missile here
-
-		// 			break;
-		// 		case 65: //this is left! (a)
-		// 			if (!$("#player")[0].player.running){
-		// 				$("#playerBody").setAnimation(playerAnimation["run-backward"]);
-		// 			}
-		// 			$("#player")[0].player.speedUp();
-		// 			break;
-		// 		case 87: //this is up! (w)
-
-		// 			break;
-		// 		case 68: //this is right (d)
-		// 			if(!$("#player")[0].player.running){
-		// 				$("#playerBody").setAnimation(playerAnimation["run-forward"]);
-		// 			}
-		// 			$("#player")[0].player.speedUp();
-
-		// 			break;
-		// 		case 83: //this is down! (s)
-
-		// 			break;
-		// 	}
-		// }
 	};
 
 	this.keyup = function(keyCode){
-		//if(!gameOver && !playerHit){
+		switch(keyCode){
+			case 65: //this is left! (a)
+				this.runInput = false;
+				
+				break;
+			case 87: //this is up! (w)
 
-		// switch(keyCode){
-		// 	case 65: //this is left! (a)
-		// 		$("#player")[0].player.slowDown('left');
-		// 		$("#playerBody").setAnimation(playerAnimation["idle-backward"]);
-		// 		break;
-		// 	case 87: //this is up! (w)
+				break;
+			case 68: //this is right (d)
+				this.runInput = false;
+				
+				break;
+			case 83: //this is down! (s)
 
-		// 		break;
-		// 	case 68: //this is right (d)
-		// 		$("#player")[0].player.rightMomentum();
-		// 		$("#playerBody").setAnimation(playerAnimation["idle-forward"]);
-		// 		break;
-		// 	case 83: //this is down! (s)
+				break;
+		}
 
-		// 		break;
-		// 	}
-		// }
+		this.setAnimation();
 	};
+
+	this.setAnimation = function(){
+		$("#playerBody").setAnimation(playerAnimation["run-forward"]);
+		
+		$("#playerBody").setAnimation(playerAnimation["run-backward"]);
+
+
+		$("#playerBody").setAnimation(playerAnimation["idle-backward"]);
+
+		$("#playerBody").setAnimation(playerAnimation["idle-forward"]);
+	}
 	
 	return true;
 }
+
