@@ -60,55 +60,55 @@ function Player(node){
 
 
 	this.keydown = function(keyCode){
-		if(!gameOver && !playerHit){
-			switch(e.keyCode){
-				case 75: //this is shoot (k)
-					//shoot missile here
+		// if(!gameOver && !playerHit){
+		// 	switch(keyCode){
+		// 		case 75: //this is shoot (k)
+		// 			//shoot missile here
 
-					break;
-				case 65: //this is left! (a)
-					if (!$("#player")[0].player.running){
-						$("#playerBody").setAnimation(playerAnimation["run-backward"]);
-					}
-					$("#player")[0].player.speedUp();
-					break;
-				case 87: //this is up! (w)
+		// 			break;
+		// 		case 65: //this is left! (a)
+		// 			if (!$("#player")[0].player.running){
+		// 				$("#playerBody").setAnimation(playerAnimation["run-backward"]);
+		// 			}
+		// 			$("#player")[0].player.speedUp();
+		// 			break;
+		// 		case 87: //this is up! (w)
 
-					break;
-				case 68: //this is right (d)
-					if(!$("#player")[0].player.running){
-						$("#playerBody").setAnimation(playerAnimation["run-forward"]);
-					}
-					$("#player")[0].player.speedUp();
+		// 			break;
+		// 		case 68: //this is right (d)
+		// 			if(!$("#player")[0].player.running){
+		// 				$("#playerBody").setAnimation(playerAnimation["run-forward"]);
+		// 			}
+		// 			$("#player")[0].player.speedUp();
 
-					break;
-				case 83: //this is down! (s)
+		// 			break;
+		// 		case 83: //this is down! (s)
 
-					break;
-			}
-		}
+		// 			break;
+		// 	}
+		// }
 	};
 
 	this.keyup = function(keyCode){
-		if(!gameOver && !playerHit){
+		//if(!gameOver && !playerHit){
 
-		switch(e.keyCode){
-			case 65: //this is left! (a)
-				$("#player")[0].player.slowDown('left');
-				$("#playerBody").setAnimation(playerAnimation["idle-backward"]);
-				break;
-			case 87: //this is up! (w)
+		// switch(keyCode){
+		// 	case 65: //this is left! (a)
+		// 		$("#player")[0].player.slowDown('left');
+		// 		$("#playerBody").setAnimation(playerAnimation["idle-backward"]);
+		// 		break;
+		// 	case 87: //this is up! (w)
 
-				break;
-			case 68: //this is right (d)
-				$("#player")[0].player.rightMomentum();
-				$("#playerBody").setAnimation(playerAnimation["idle-forward"]);
-				break;
-			case 83: //this is down! (s)
+		// 		break;
+		// 	case 68: //this is right (d)
+		// 		$("#player")[0].player.rightMomentum();
+		// 		$("#playerBody").setAnimation(playerAnimation["idle-forward"]);
+		// 		break;
+		// 	case 83: //this is down! (s)
 
-				break;
-			}
-		}
+		// 		break;
+		// 	}
+		// }
 	};
 	
 	return true;
