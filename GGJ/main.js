@@ -149,7 +149,7 @@ $(function(){
 					.addGroup("actors", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
 					  .addGroup("crowd", {width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT})
 					  .addGroup("interactables",{width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
-						.addGroup("player", {posx: PLAYGROUND_WIDTH/2, posy: PLAYGROUND_HEIGHT - 120, width: 60, height: 100})
+						.addGroup("player", {posx: PLAYGROUND_WIDTH/2, posy: PLAYGROUND_HEIGHT - 170, width: 60, height: 100})
 							.addSprite("playerBody",{animation: playerAnimation["idle-forward"], posx: 0, posy: 0, width: 60, height: 100})
 						.end()
 					.end()
@@ -165,11 +165,11 @@ $(function(){
     for (var i = 0; i < npcCount; i++) {
       var name = 'npc' + i;
       var w = 60;
-      var h = 60;
+      var h = 100;
       var offset = Math.floor((Math.random() * 100) + 1) - 50;
       $("#crowd").addSprite(name, 
         {animation: new $.gQ.Animation({imageURL: "images/npc.png", numberOfFrame: 1, delta: 52, rate: 60, type: $.gQ.ANIMATION_VERTICAL}), 
-        posx: px + offset, posy: PLAYGROUND_HEIGHT - 120, width: w, height: h});
+        posx: px + offset, posy: PLAYGROUND_HEIGHT - 160, width: w, height: h});
             $('#' + name).addClass('npc');
       $('#' + name)[0].npc = new NPC($('#' + name));
       $('#crowd')[0].crowd.add($('#' + name)[0].npc);
