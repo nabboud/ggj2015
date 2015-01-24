@@ -22,6 +22,7 @@ var bossName = null;
 var playerHit = false;
 var timeOfRespawn = 0;
 var gameOver = false;
+var crowdOn = true; // include the crowd in the game
 
 // Some hellper functions : 
 
@@ -150,6 +151,8 @@ $(function(){
 						.addSprite("background2", {animation: background2, width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT, posx: PLAYGROUND_WIDTH})
 					.end()
 					.addGroup("actors", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
+					  .addGroup("crowd", {width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT})
+					  .addGroup("interactables",{width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
 						.addGroup("player", {posx: PLAYGROUND_WIDTH/2, posy: PLAYGROUND_HEIGHT - 120, width: 100, height: 100})
 							.addSprite("playerBody",{animation: playerAnimation["idle-forward"], posx: 0, posy: 0, width: 100, height: 100})
 						.end()
@@ -157,7 +160,26 @@ $(function(){
 					.addGroup("overlay",{width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT});
 	
 	$("#player")[0].player = new Player($("#player"));
-	
+
+  // Generate the crowd NPCs
+  if (crowdOn) {
+  	$("#crowd")[0].crowd = new Crowd($("#crowd"));
+    var px = -1 * Math.floor((Math.random() * PLAYGROUND_WIDTH) + 1); // \start the crowd off-screen
+    var npcCount = Math.floor((Math.random() * 4) + 1) + 1;
+    for (var i = 0; i < npcCount; i++) {
+      var name = 'npc' + i;
+      var w = 60;
+      var h = 60;
+      var offset = Math.floor((Math.random() * 100) + 1) - 50;
+      $("#crowd").addSprite(name, 
+        {animation: new $.gQ.Animation({imageURL: "images/npc.png", numberOfFrame: 1, delta: 52, rate: 60, type: $.gQ.ANIMATION_VERTICAL}), 
+        posx: px + offset, posy: PLAYGROUND_HEIGHT - 120, width: w, height: h});
+            $('#' + name).addClass('npc');
+      $('#' + name)[0].npc = new NPC($('#' + name));
+      $('#crowd')[0].crowd.add($('#' + name)[0].npc);
+    }
+  }
+
 	//this is the HUD for the player life and suspicion
 	$("#overlay").append("<div id='suspicionHUD'style='color: black; width: 100px; position: absolute; left: 0px; font-family: verdana, sans-serif;'></div><div id='timerHUD'style='color: black; width: 100px; position: absolute; right: 0px; font-family: verdana, sans-serif;'></div>")
 	
@@ -189,6 +211,10 @@ $(function(){
 				
 				newPos = ($("#background2").x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
 				$("#background2").x(newPos);
+
+				$('.npc').each(function() {	
+	            	$(this).x(($(this).x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH);
+	        	});
 			} else {
 
 				var nextpos = $("#player").x() + $("#player")[0].player.speed;
@@ -203,7 +229,6 @@ $(function(){
 
 			}
 			if(jQuery.gameQuery.keyTracker[68]){ //this is right! (d)
-
 
 			}
 			
