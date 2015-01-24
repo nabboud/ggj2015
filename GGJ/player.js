@@ -49,6 +49,15 @@ function Player(node){
 			this.respawnTime = -1;
 		}
 	}
+
+	this.speedUp = function(){
+		this.running = true;
+		this.speed += 1;
+		if (this.speed > 15){
+			this.speed = 15;
+		}
+
+	};
 	
 	return true;
 }

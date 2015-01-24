@@ -1,6 +1,6 @@
 // Global constants:
-var PLAYGROUND_WIDTH	= 700;
-var PLAYGROUND_HEIGHT	= 250;
+var PLAYGROUND_WIDTH	= 800;
+var PLAYGROUND_HEIGHT	= 400;
 var REFRESH_RATE		= 15;
 
 var GRACE		= 2000;
@@ -114,10 +114,10 @@ $(function(){
  
 	
 	// Player space shipannimations:
-	playerAnimation["idle-forward"]	 = new $.gQ.Animation({imageURL: "player-forward.png", numberOfFrame: 4, delta: 100, rate:3, type: $.gQ.ANIMATION_HORIZONTAL});
-	playerAnimation["idle-backward"] = new $.gQ.Animation({imageURL: "player-backward.png", numberOfFrame: 4, delta: 100, rate:3, type: $.gQ.ANIMATION_HORIZONTAL});
-	playerAnimation["run-forward"]	 = new $.gQ.Animation({imageURL: "player-run-forward.png" , numberOfFrame: 4, delta: 100, rate: 3, type: $.gQ.ANIMATION_HORIZONTAL});
-	playerAnimation["run-backward"]	 = new $.gQ.Animation({imageURL: "player-run-backward.png", numberOfFrame: 4, delta: 100, rate: 3, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["idle-forward"]	 = new $.gQ.Animation({imageURL: "player-forward.png", numberOfFrame: 4, delta: 100, rate:30, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["idle-backward"] = new $.gQ.Animation({imageURL: "player-backward.png", numberOfFrame: 4, delta: 100, rate:30, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["run-forward"]	 = new $.gQ.Animation({imageURL: "player-run-forward.png" , numberOfFrame: 4, delta: 100, rate: 30, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["run-backward"]	 = new $.gQ.Animation({imageURL: "player-run-backward.png", numberOfFrame: 4, delta: 100, rate: 30, type: $.gQ.ANIMATION_HORIZONTAL});
 	
 	// //  List of enemies animations :
 		// // 1st kind of enemy:
@@ -150,7 +150,7 @@ $(function(){
 						.addSprite("background2", {animation: background2, width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT, posx: PLAYGROUND_WIDTH})
 					.end()
 					.addGroup("actors", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
-						.addGroup("player", {posx: PLAYGROUND_WIDTH/2, posy: PLAYGROUND_HEIGHT/2, width: 100, height: 100})
+						.addGroup("player", {posx: PLAYGROUND_WIDTH/2, posy: PLAYGROUND_HEIGHT - 120, width: 100, height: 100})
 							.addSprite("playerBody",{animation: playerAnimation["idle-forward"], posx: 0, posy: 0, width: 100, height: 100})
 						.end()
 					.end()
@@ -191,7 +191,9 @@ $(function(){
 			}
 			if(jQuery.gameQuery.keyTracker[68]){ //this is right! (d)
 
-				console.log($('#player').x());
+				if ($("#player")[0].player.facingRight && $("#player")[0].player.running){
+
+				}
 
 				if ($('#player').x() >= 450){
 					var newPos = ($("#background1").x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
@@ -344,21 +346,19 @@ $(function(){
 					break;
 				case 65: //this is left! (a)
 					if (!$("#player")[0].player.running){
-						$("#player")[0].player.running = true;
 						$("#playerBody").setAnimation(playerAnimation["run-backward"]);
 					}
-					$("#player")[0].player.speed++;
-
+					$("#player")[0].player.speedUp();
 					break;
 				case 87: //this is up! (w)
 
 					break;
 				case 68: //this is right (d)
 					if(!$("#player")[0].player.running){
-						$("#player")[0].player.running = true;
 						$("#playerBody").setAnimation(playerAnimation["run-forward"]);
 					}
-					$("#player")[0].player.speed++;
+					$("#player")[0].player.speedUp();
+
 					break;
 				case 83: //this is down! (s)
 
