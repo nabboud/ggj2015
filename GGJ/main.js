@@ -109,15 +109,15 @@ $(function(){
 	// Aniomations declaration: 
 	
 	// The background:
-	var background1 = new $.gQ.Animation({imageURL: "background1.png"});
-	var background2 = new $.gQ.Animation({imageURL: "background2.png"});
+	var background1 = new $.gQ.Animation({imageURL: "images/background1.png"});
+	var background2 = new $.gQ.Animation({imageURL: "images/background2.png"});
  
 	
 	// Player space shipannimations:
-	playerAnimation["idle-forward"]	 = new $.gQ.Animation({imageURL: "player-forward.png", numberOfFrame: 4, delta: 100, rate:30, type: $.gQ.ANIMATION_HORIZONTAL});
-	playerAnimation["idle-backward"] = new $.gQ.Animation({imageURL: "player-backward.png", numberOfFrame: 4, delta: 100, rate:30, type: $.gQ.ANIMATION_HORIZONTAL});
-	playerAnimation["run-forward"]	 = new $.gQ.Animation({imageURL: "player-run-forward.png" , numberOfFrame: 4, delta: 100, rate: 30, type: $.gQ.ANIMATION_HORIZONTAL});
-	playerAnimation["run-backward"]	 = new $.gQ.Animation({imageURL: "player-run-backward.png", numberOfFrame: 4, delta: 100, rate: 30, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["idle-forward"]	 = new $.gQ.Animation({imageURL: "images/player-forward.png", numberOfFrame: 4, delta: 100, rate:30, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["idle-backward"] = new $.gQ.Animation({imageURL: "images/player-backward.png", numberOfFrame: 4, delta: 100, rate:30, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["run-forward"]	 = new $.gQ.Animation({imageURL: "images/player-run-forward.png" , numberOfFrame: 4, delta: 100, rate: 30, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["run-backward"]	 = new $.gQ.Animation({imageURL: "images/player-run-backward.png", numberOfFrame: 4, delta: 100, rate: 30, type: $.gQ.ANIMATION_HORIZONTAL});
 	
 	// //  List of enemies animations :
 		// // 1st kind of enemy:
@@ -338,57 +338,11 @@ $(function(){
 	
 	//this is where the keybinding occurs
 	$(document).keydown(function(e){
-		if(!gameOver && !playerHit){
-			switch(e.keyCode){
-				case 75: //this is shoot (k)
-					//shoot missile here
-
-					break;
-				case 65: //this is left! (a)
-					if (!$("#player")[0].player.running){
-						$("#playerBody").setAnimation(playerAnimation["run-backward"]);
-					}
-					$("#player")[0].player.speedUp();
-					break;
-				case 87: //this is up! (w)
-
-					break;
-				case 68: //this is right (d)
-					if(!$("#player")[0].player.running){
-						$("#playerBody").setAnimation(playerAnimation["run-forward"]);
-					}
-					$("#player")[0].player.speedUp();
-
-					break;
-				case 83: //this is down! (s)
-
-					break;
-			}
-		}
+		$('#player')[0].player.keydown(e.keyCode);
 	});
 	//this is where the keybinding occurs
 	$(document).keyup(function(e){
-		if(!gameOver && !playerHit){
-
-			switch(e.keyCode){
-				case 65: //this is left! (a)
-					$("#player")[0].player.running = false;
-					$("#player")[0].player.speed = 0;
-					$("#playerBody").setAnimation(playerAnimation["idle-backward"]);
-					break;
-				case 87: //this is up! (w)
-
-					break;
-				case 68: //this is right (d)
-					$("#player")[0].player.running = false;
-					$("#player")[0].player.speed = 0;
-					$("#playerBody").setAnimation(playerAnimation["idle-forward"]);
-					break;
-				case 83: //this is down! (s)
-
-					break;
-			}
-		}
+		$('#player')[0].player.keyup(e.keyCode);
 	});
 });
 

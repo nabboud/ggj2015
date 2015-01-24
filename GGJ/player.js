@@ -4,12 +4,11 @@ function Player(node){
 	//this.animations = animations;
 
 	this.grace = false;
-	this.replay = 3; 
+	this.replay = 3;
 	this.suspicion = 3; 
 	this.timer = 2000;
 	this.respawnTime = -1;
 	this.facingRight = true;
-	this.running = false;
 	this.speed = 0;
 	
 
@@ -48,7 +47,7 @@ function Player(node){
 			$(this.node).fadeTo(500, 1); 
 			this.respawnTime = -1;
 		}
-	}
+	};
 
 	this.speedUp = function(){
 		this.running = true;
@@ -57,6 +56,59 @@ function Player(node){
 			this.speed = 15;
 		}
 
+	};
+
+
+	this.keydown = function(keyCode){
+		if(!gameOver && !playerHit){
+			switch(e.keyCode){
+				case 75: //this is shoot (k)
+					//shoot missile here
+
+					break;
+				case 65: //this is left! (a)
+					if (!$("#player")[0].player.running){
+						$("#playerBody").setAnimation(playerAnimation["run-backward"]);
+					}
+					$("#player")[0].player.speedUp();
+					break;
+				case 87: //this is up! (w)
+
+					break;
+				case 68: //this is right (d)
+					if(!$("#player")[0].player.running){
+						$("#playerBody").setAnimation(playerAnimation["run-forward"]);
+					}
+					$("#player")[0].player.speedUp();
+
+					break;
+				case 83: //this is down! (s)
+
+					break;
+			}
+		}
+	};
+
+	this.keyup = function(keyCode){
+		if(!gameOver && !playerHit){
+
+		switch(e.keyCode){
+			case 65: //this is left! (a)
+				$("#player")[0].player.slowDown('left');
+				$("#playerBody").setAnimation(playerAnimation["idle-backward"]);
+				break;
+			case 87: //this is up! (w)
+
+				break;
+			case 68: //this is right (d)
+				$("#player")[0].player.rightMomentum();
+				$("#playerBody").setAnimation(playerAnimation["idle-forward"]);
+				break;
+			case 83: //this is down! (s)
+
+				break;
+			}
+		}
 	};
 	
 	return true;
