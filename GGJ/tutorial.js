@@ -22,7 +22,6 @@ var bossName = null;
 var playerHit = false;
 var timeOfRespawn = 0;
 var gameOver = false;
-
 // Some hellper functions : 
 
 // Function to restart the game:
@@ -46,8 +45,10 @@ function Player(node){
 	this.grace = false;
 	this.replay = 3; 
 	this.shield = 3; 
+	this.timer = 5000;
 	this.respawnTime = -1;
 	
+
 	// This function damage the ship and return true if this cause the ship to die 
 	this.damage = function(){
 		if(!this.grace){
@@ -76,7 +77,9 @@ function Player(node){
 	};
 	
 	this.update = function(){
+		this.timer--;
 		if((this.respawnTime > 0) && (((new Date()).getTime()-this.respawnTime) > 3000)){
+
 			this.grace = false;
 			$(this.node).fadeTo(500, 1); 
 			this.respawnTime = -1;
@@ -228,7 +231,7 @@ $(function(){
 	$("#player")[0].player = new Player($("#player"));
 	
 	//this is the HUD for the player life and shield
-	$("#overlay").append("<div id='shieldHUD'style='color: white; width: 100px; position: absolute; font-family: verdana, sans-serif;'></div><div id='lifeHUD'style='color: white; width: 100px; position: absolute; right: 0px; font-family: verdana, sans-serif;'></div>")
+	$("#overlay").append("<div id='timerHUD'style='color: white; width: 100px; position: absolute; right: 0px; font-family: verdana, sans-serif;'></div>")
 	
 	// this sets the id of the loading bar:
 	$.loadCallback(function(percent){
@@ -247,6 +250,7 @@ $(function(){
 		if(!gameOver){
 			$("#shieldHUD").html("shield: "+$("#player")[0].player.shield);
 			$("#lifeHUD").html("life: "+$("#player")[0].player.replay);
+			$("#timerHUD").html("time: "+$("#player")[0].player.timer);
 			//Update the movement of the ship:
 			if(!playerHit){
 				$("#player")[0].player.update();
