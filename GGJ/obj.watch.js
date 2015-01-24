@@ -11,10 +11,9 @@ this.start = function(){
 this.updateTimer = function(){
 	var tempDate = new Date();
 	var diff = +tempDate - +this.startDate;
-	console.log(diff);
 
-	var seconds = (diff/1000).toFixed(0) + '';
-	seconds = (seconds.length == 1) ? '0' + seconds : (seconds%60);
+	var seconds = (diff/1000).toFixed(0)%60 + '';
+	seconds = (seconds.length == 1) ? '0' + seconds : seconds;
 
 	if (diff/1000 > 60){
 		this.startDate = new Date();

@@ -18,12 +18,13 @@ function Player(node){
 
 	this.friction = function() {
 		if (!this.runInput){
+			var frictionVar = Math.min(Math.abs(this.speed), 10);
 			if (Math.abs(this.speed) < 3){
 				this.speed = 0;
 			} else if (this.speed < 0){
-				this.speed += Math.random()*3;
+				this.speed += Math.random()*(frictionVar);
 			} else {
-				this.speed -= Math.random()*3;
+				this.speed -= Math.random()*(frictionVar);
 			}
 		}
 		this.facingRight = (this.speed >= 0);

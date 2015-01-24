@@ -15,6 +15,8 @@ var playerAnimation = new Array();
 var timeOfRespawn = 0;
 var gameOver = false;
 var crowdOn = true; // include the crowd in the game
+var distanceTraved = 0;
+var gameDistance = 100000;
 
 // Some hellper functions : 
 
@@ -200,9 +202,9 @@ $(function(){
 	$.playground().registerCallback(function(){
 		if(!gameOver){
 			if ($('#crowd')[0].crowd) {
-        var s = $('#crowd')[0].crowd.increasePlayerSuspsicion($('#player')[0].player);
-        $('#player')[0].player.increaseSuspicion(s);
-      }
+		        var s = $('#crowd')[0].crowd.increasePlayerSuspsicion($('#player')[0].player);
+		        $('#player')[0].player.increaseSuspicion(s);
+		    }
 
 			$("#suspicionHUD").html("suspicion: "+$("#player")[0].player.suspicion);
 			$("#speedHUD").html("speed: " + ($("#player")[0].player.speed).toFixed(2));
@@ -219,19 +221,18 @@ $(function(){
 				newPos = ($("#background2").x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
 				$("#background2").x(newPos);
 
-      	if ($('#crowd')[0].crowd && $('#crowd')[0].crowd.upperX() < 0) {
-      		var chance = Math.floor(Math.random() * 20) % 20;
-      		if (chance == 0) {
-      			newCrowd(PLAYGROUND_WIDTH + 200);
-      		}
-      	}
-      	else {
+      			if ($('#crowd')[0].crowd && $('#crowd')[0].crowd.upperX() < 0) {
+      				var chance = Math.floor(Math.random() * 20) % 20;
+	      			if (chance == 0) {
+	      				newCrowd(PLAYGROUND_WIDTH + 200);
+	      			}
+      			}
+      			else {
 					$('.npc').each(function() {	
-	          	$(this).x(($(this).x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH);
-	      	});
-      	}
+	          			$(this).x(($(this).x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH);
+	      			});
+      			}
 			} else {
-
 				var nextpos = $("#player").x() + $("#player")[0].player.speed;
 				if(nextpos > 0){
 					$("#player").x(nextpos);
@@ -245,11 +246,7 @@ $(function(){
 
 			}
 		} else {
-			console.log('gameOver');
-
-			$("#welcomeScreen")
-				.attr('src', '/images/gameover.png')
-				.fadeTo(1000,1);
+			restartgame();
 		}
 	}, REFRESH_RATE);
 	
