@@ -285,7 +285,7 @@ $(function(){
 					//Does the player did get out of the screen?
 					if($("#player")[0].player.respawn()){
 						gameOver = true;
-						$("#playground").append('<div style="position: absolute; top: 50px; width: 700px; color: white; font-family: verdana, sans-serif;"><center><h1>Game Over</h1><br><a style="cursor: pointer;" id="restartbutton">Click here to restart the game!</a></center></div>');
+						$("#playground").append('<div style="position: absolute; top: 50px; width: 700px; color: white; font-family: verdana, sans-serif;"><center><h1>You have been found out!</h1><br><a style="cursor: pointer;" id="restartbutton">Click here to restart the game!</a></center></div>');
 						$("#restartbutton").click(restartgame);
 						$("#actors,#playerMissileLayer,#enemiesMissileLayer").fadeTo(1000,0);
 						$("#background").fadeTo(5000,0);
