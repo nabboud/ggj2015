@@ -1,4 +1,3 @@
-// Game objects:
 function Player(node){
 
 	this.node = node;
@@ -9,6 +8,8 @@ function Player(node){
 	this.suspicion = 3; 
 	this.timer = 5000;
 	this.respawnTime = -1;
+	this.facingRight = true;
+	this.running = false;
 	
 
 	// This function damage the ship and return true if this cause the ship to die 
