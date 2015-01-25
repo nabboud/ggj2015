@@ -3,17 +3,13 @@ var PLAYGROUND_WIDTH	= 800;
 var PLAYGROUND_HEIGHT	= 400;
 var REFRESH_RATE		= 15;
 
-var GRACE		= 2000;
-
-/*Constants for the gameplay*/
-var smallStarSpeed    	= 1 //pixels per frame
-
 // Gloabl animation holder
 var playerAnimation = new Array();
 
 // Game state
 var timeOfRespawn = 0;
 var gameOver = false;
+var buttonScreen = true;
 var crowdOn = true; // include the crowd in the game
 var distanceTraved = 0;
 var gameDistance = 50000;
@@ -22,11 +18,13 @@ var gameDistance = 50000;
 
 // Function to restart the game:
 function restartgame(){
-	$("#startbutton").click(function(){
+	$("#select-button").click(function(){
 		$.playground().startGame(function(){
+			buttonScreen = false;
 			$("#welcomeScreen").fadeTo(1000,0);
 			$("#timerHUD")[0].watch.start();
 		});
+		$("#select-button").hide();
 	});
 	window.location.reload();
 };
@@ -116,11 +114,13 @@ $(function(){
 	});
 	
 	//initialize the start button
-	$("#startbutton").click(function(){
+	$("#select-button").click(function(){
 		$.playground().startGame(function(){
+			buttonScreen = false;
 			$("#welcomeScreen").fadeTo(1000,0);
 			$("#timerHUD")[0].watch.start();
 		});
+		$("#select-button").hide();
 	});
 	
 	// this is the function that control most of the game logic 
@@ -177,28 +177,36 @@ $(function(){
 			}
 
 			if (distanceTraved >= gameDistance){
-				gameover = true;
+				gameOver = true;
 			}
 			$('#distanceHUD').html(((distanceTraved/gameDistance)*100).toFixed(3) + '%');
 
-		} else {
+		} else if (gameOver && !buttonScreen){
 			if (distanceTraved >= gameDistance){
 
-				$("#startbutton")
+				$("#select-button")
 					.html('Replay')
+					.removeClass('start retry replay')
+					.addClass('replay')
+					.show()
 					.click(function(){
 						restartgame();
 					});
+					buttonScreen = true;
 				$("#welcomeScreen")
 					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/happyending.png); font-family: verdana, sans-serif;')
 					.fadeTo(1000, 1);
 
 			} else {
-				$("#startbutton")
-					.html('Replay')
+				$("#select-button")
+					.html('Retry')
+					.removeClass('start retry replay')
+					.addClass('retry')
+					.show()
 					.click(function(){
 						restartgame();
 					});
+					buttonScreen = true;
 				$("#welcomeScreen")
 					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/gameover.png); font-family: verdana, sans-serif;')
 					.fadeTo(1000, 1);

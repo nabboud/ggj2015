@@ -2,27 +2,85 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
 	<head>
 		<title>Purrfect Pace</title>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
-		<script type="text/javascript" src="gameQuery.js"></script>
-		<script type="text/javascript" src="player.js"></script>
-		<script type="text/javascript" src="obj.crowd.js"></script>
-		<script type="text/javascript" src="obj.npc.js"></script>
-		<script type="text/javascript" src="obj.watch.js"></script>
-		<script type="text/javascript" src="main.js"></script>
+		<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+		<script type="text/javascript" src="scripts/jQuery.js"></script>
+		<script type="text/javascript" src="scripts/gameQuery.js"></script>
+		<script type="text/javascript" src="scripts/player.js"></script>
+		<script type="text/javascript" src="scripts/obj.crowd.js"></script>
+		<script type="text/javascript" src="scripts/obj.npc.js"></script>
+		<script type="text/javascript" src="scripts/obj.watch.js"></script>
+		<script type="text/javascript" src="scripts/main.js"></script>
 		<style type="text/css">
 			html,body{
 				margin: 0;
 				padding: 0;
 				background: black;
 			}
+			#select-button {
+				cursor: pointer;
+				position: absolute;
+				left: 20px;
+				top: 345px;
+			}
+
+			.replay {
+				border: 3px solid #0c62f5;
+				max-width: 150px;
+				border-radius: 5px;
+				box-shadow: 0px 6px 0px #0a53d1;
+				font-size: 1.7em;
+				background-color: #0c95f6;
+				color: white;
+			}
+
+			.replay:hover	{
+				background-color: #0c62f5;
+				box-shadow: none;
+				position: relative;
+				top:5px;
+			}
+
+			.retry {
+				border: 3px solid #bc0a0a;
+				max-width: 150px;
+				border-radius: 5px;
+				box-shadow: 0px 6px 0px #a70808;
+				font-size: 1.7em;
+				background-color: #db3d04;
+				color: white;
+			}
+
+			.retry:hover {
+				background-color: #b11717;
+				box-shadow: none;
+				position: relative;
+				top:5px;
+			}
+
+			.start {
+				border: 3px solid #549904;
+				max-width: 150px;
+				border-radius: 5px;
+				box-shadow: 0px 6px 0px #488204;
+				font-size: 1.7em;
+				background-color: #66bd00;
+				color: white;
+			}
+
+			.start:hover	{
+				background-color: #539804;
+				box-shadow: none;
+				position: relative;
+				top:5px;
+			}
+
+
 		</style>
 	</head>
 	<body>
 	<div id="playground" style="width: 800px; height: 400px; background: black;">
 		<div id="welcomeScreen" style="width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/opening.png); font-family: verdana, sans-serif;">
-			<div style="position: absolute; top: 120px; width: 800px; color: white;">
-				<a style="cursor: pointer; position: absolute; left: 250px; top: 215px;" id="startbutton">Click here to start!</a>
-			</div>
+			<button id="select-button" class='start'>Start</button>
 		</div>
 	</div>
 	</body>
