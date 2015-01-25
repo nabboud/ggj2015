@@ -138,7 +138,7 @@ $(function(){
 		</div> \
 		<div id='speedHUD'style='color: black; width: 250px; position: absolute; left: 160px; font-family: verdana, sans-serif;'> \
 		</div> \
-		<div id='distanceHUD'style='color: black; width: 100px; position: absolute; left: 320px; font-family: verdana, sans-serif;'> \
+		<div id='distanceHUD'style='background: #00CC33; color: white; width: 70px; position: absolute; left: 320px; font-family: verdana, sans-serif; border: 2px solid white; padding: 4px; text-align: right;'> \
 		</div> \
 		<div id='invisibleBubHUD'style='width: 100px; position: absolute; left: 420px; height: 30px'> \
 		</div> \
@@ -200,7 +200,7 @@ $(function(){
 	    }
 
 			$("#suspicionHUD").html('<img src="images/HUD/susp-' + Math.min((Math.round($("#player")[0].player.suspicion/5) + 1), 5) + '.png"</img>');
-			$("#speedHUD").html("speed: " + ($("#player")[0].player.speed).toFixed(2));
+			$("#speedHUD").html(($("#player")[0].player.speed).toFixed(0) + ' Paws/sec');
  			$('#timerHUD')[0].watch.updateTimer();
 			
 			//Update the movement of the ship:
