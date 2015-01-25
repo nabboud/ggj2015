@@ -16,7 +16,7 @@ var timeOfRespawn = 0;
 var gameOver = false;
 var crowdOn = true; // include the crowd in the game
 var distanceTraved = 0;
-var gameDistance = 100000;
+var gameDistance = 50000;
 
 // Some hellper functions : 
 
@@ -157,7 +157,7 @@ $(function(){
 					.addGroup("actors", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
 					  .addGroup("crowd", {width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT})
 					  .addGroup("interactables",{width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
-						.addGroup("player", {posx: PLAYGROUND_WIDTH/2, posy: PLAYGROUND_HEIGHT - 170, width: 60, height: 100})
+						.addGroup("player", {posx: 100, posy: PLAYGROUND_HEIGHT - 170, width: 60, height: 100})
 							.addSprite("playerBody",{animation: playerAnimation["idle-forward"], posx: 0, posy: 0, width: 60, height: 100})
 						.end()
 					.end()
@@ -229,7 +229,7 @@ $(function(){
 			
 			$("#player")[0].player.update();
 
-			if ($('#player').x() >= 300 && $("#player")[0].player.speed > 0){
+			if ($('#player').x() >= 200 && $("#player")[0].player.speed > 0){
 				var newPos = ($("#background1").x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
 				$("#background1").x(newPos);
 				

@@ -9,7 +9,7 @@ function Player(node){
 	this.suspicion = 0; 
 	this.respawnTime = -1;
 	this.speed = 0;
-	this.topSpeed = 100;
+	this.topSpeed = 150;
 	this.runInput = false;
 	this.facingRight = true;
 	this.runSpeed = 25;
@@ -85,7 +85,7 @@ function Player(node){
 			this.setAnimation();
 		}
 
-		if (this.leftDown){daa
+		if (this.leftDown){
 			this.runInput = true;
 			var acc = this.acceleration(-1);
 			this.speed += acc;
