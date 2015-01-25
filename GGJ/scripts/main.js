@@ -54,6 +54,15 @@ $(function(){
 	playerAnimation["run-forward"]	 = new $.gQ.Animation({imageURL: "images/player-run-forward.png" , numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
 	playerAnimation["run-backward"]	 = new $.gQ.Animation({imageURL: "images/player-run-backward.png", numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
 	
+	playerAnimation["idle-forward-invisible"]	 = new $.gQ.Animation({imageURL: "images/player-walk-forward-invisible.png"});
+	playerAnimation["idle-backward-invisible"] = new $.gQ.Animation({imageURL: "images/player-walk-backward-invisible.png"});
+
+	playerAnimation["walk-forward-invisible"]	 = new $.gQ.Animation({imageURL: "images/player-walk-forward-invisible.png" , numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["walk-backward-invisible"] = new $.gQ.Animation({imageURL: "images/player-walk-backward-invisible.png", numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
+
+	playerAnimation["run-forward-invisible"]	 = new $.gQ.Animation({imageURL: "images/player-run-forward-invisible.png" , numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["run-backward-invisible"]	 = new $.gQ.Animation({imageURL: "images/player-run-backward-invisible.png", numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
+	
 	// Initialize the game:
 	$("#playground").playground({height: PLAYGROUND_HEIGHT, width: PLAYGROUND_WIDTH, keyTracker: true});
 				

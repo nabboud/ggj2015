@@ -48,7 +48,7 @@ function Player(node){
 			invisstate = true;
 			this.invispowers -= 1;
 			if (this.invisrange < SUSPICION_RANGE){
-				this.suspicion += 10;
+				this.suspicion += ;
 			}
 		}
 	};
@@ -156,7 +156,9 @@ function Player(node){
 		} else {
 			newAnimation = "run-backward";
 		}
-
+		if (this.invisstate == true){
+			newAnimation += "-invisible";
+		}
 		if (newAnimation != this.currentAnimation){
 			$("#playerBody").setAnimation(playerAnimation[newAnimation]);
 			this.currentAnimation = newAnimation;
