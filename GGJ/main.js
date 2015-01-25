@@ -22,6 +22,12 @@ var gameDistance = 100000;
 
 // Function to restart the game:
 function restartgame(){
+	$("#startbutton").click(function(){
+		$.playground().startGame(function(){
+			$("#welcomeScreen").fadeTo(1000,0);
+			$("#timerHUD")[0].watch.start();
+		});
+	});
 	window.location.reload();
 };
 
@@ -183,7 +189,16 @@ $(function(){
   }
 
 	//this is the HUD for the player life and suspicion
-	$("#overlay").append("<div id='suspicionHUD'style='color: black; width: 150px; position: absolute; left: 0px; font-family: verdana, sans-serif;'></div><div id='speedHUD'style='color: black; width: 250px; position: absolute; left: 160px; font-family: verdana, sans-serif;'></div><div id='timerHUD'style='color: black; width: 100px; position: absolute; right: 0px; font-family: verdana, sans-serif;'></div>")
+	$("#overlay").append("\
+		<div id='suspicionHUD'style='color: black; width: 150px; position: absolute; left: 0px; font-family: verdana, sans-serif;'> \
+		</div> \
+		<div id='speedHUD'style='color: black; width: 250px; position: absolute; left: 160px; font-family: verdana, sans-serif;'> \
+		</div> \
+		<div id='distanceHUD'style='color: black; width: 100px; position: absolute; left: 320px; font-family: verdana, sans-serif;'> \
+		</div> \
+		<div id='timerHUD'style='color: cyan; background: black; position: absolute; right: 0px; font-family: verdana, sans-serif;'> \
+		</div>");
+
 	$("#timerHUD")[0].watch = new Watch($("#timerHUD"));
 	// this sets the id of the loading bar:
 	$.loadCallback(function(percent){
@@ -193,10 +208,10 @@ $(function(){
 	//initialize the start button
 	$("#startbutton").click(function(){
 		$.playground().startGame(function(){
-			$("#welcomeScreen").fadeTo(1000,0,function(){$(this).remove();});
+			$("#welcomeScreen").fadeTo(1000,0);
+			$("#timerHUD")[0].watch.start();
 		});
-		$("#timerHUD")[0].watch.start();
-	})
+	});
 	
 	// this is the function that control most of the game logic 
 	$.playground().registerCallback(function(){
@@ -220,6 +235,8 @@ $(function(){
 				
 				newPos = ($("#background2").x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
 				$("#background2").x(newPos);
+
+				distanceTraved += $("#player")[0].player.speed;
 
       			if ($('#crowd')[0].crowd && $('#crowd')[0].crowd.upperX() < 0) {
       				var chance = Math.floor(Math.random() * 20) % 20;
@@ -245,8 +262,25 @@ $(function(){
 			if(jQuery.gameQuery.keyTracker[68]){ //this is right! (d)
 
 			}
+
+			gameOver = (distanceTraved >= gameDistance);
+			$('#distanceHUD').html(((distanceTraved/gameDistance)*100).toFixed(3) + '%');
+
 		} else {
-			restartgame();
+			if (distanceTraved >= gameDistance){
+
+				$("#startbutton")
+					.html('Replay')
+					.click(function(){
+						restartgame();
+					});
+				$("#welcomeScreen")
+					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/gameover.png); font-family: verdana, sans-serif;')
+					.fadeTo(1000, 1);
+
+			} else {
+				restartgame();	
+			}
 		}
 	}, REFRESH_RATE);
 	

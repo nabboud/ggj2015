@@ -78,31 +78,24 @@ function Player(node){
 	this.keydown = function(keyCode){
 
 		switch(keyCode){
-			case 75: //this is shoot (k)
-				//shoot missile here
-
-				break;
 			case 65: //this is left! (a)
 				this.runInput = true;
 				var acc = this.acceleration(-1);
 				this.speed += acc;
 				//(this.speed > -(this.topSpeed - acc)) ? (this.speed -= acc) : -this.topSpeed;
-				break;
-			case 87: //this is up! (w)
 
+				this.setAnimation();
 				break;
 			case 68: //this is right (d)
 				this.runInput = true;
 				var acc = this.acceleration(1);
 				this.speed += acc;
+
+				this.setAnimation();
 				
 				//this.speed = (this.speed < (this.topSpeed - acc)) ? (this.speed += acc) : this.topSpeed;
 				break;
-			case 83: //this is down! (s)
-
-				break;
 		}
-		this.setAnimation();
 	};
 
 	this.keyup = function(keyCode){
@@ -111,15 +104,9 @@ function Player(node){
 				this.runInput = false;
 				
 				break;
-			case 87: //this is up! (w)
-
-				break;
 			case 68: //this is right (d)
 				this.runInput = false;
 				
-				break;
-			case 83: //this is down! (s)
-
 				break;
 		}
 	};

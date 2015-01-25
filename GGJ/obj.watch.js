@@ -23,7 +23,7 @@ this.updateTimer = function(){
 		}
 	}
 
-	$('#timerHUD').html('7:' + this.timeOutput + ':' + seconds);
+	$('#timerHUD').html('<b>7:' + this.timeOutput + ':' + seconds + '</b>');
 
 };
 
