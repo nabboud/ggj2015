@@ -47,6 +47,10 @@ function Player(node){
 
 	this.invisibility = function(){
 		if(this.inviscount > 0 && !this.invisstate){
+
+			if ($('#crowd')[0].crowd != null && ($('#crowd')[0].crowd.upperX() > 30 && $('#crowd')[0].crowd.lowerX() < PLAYGROUND_WIDTH - 30)){
+				this.suspicion += 5;
+			}
 			this.invistimer = new Date();
 			this.invisstate = true;
 			this.setAnimation();
@@ -110,6 +114,9 @@ function Player(node){
 			var tempDate = new Date();
 			if (+tempDate - +this.invistimer > this.invistime){
 				this.invisstate = false;
+				if ($('#crowd')[0].crowd != null && ($('#crowd')[0].crowd.upperX() > 30 && $('#crowd')[0].crowd.lowerX() < PLAYGROUND_WIDTH - 30)){
+					this.suspicion += 5;
+				}
 			}
 		}
 
@@ -181,10 +188,10 @@ function Player(node){
 		value = parseInt(value);
 		if (!this.invisstate){
 			this.suspicion += value;
-			if (this.suspicion > SUSPICION_MAX) {
-				gameOver = true;
-				console.log('gameover');
-			}
+		}
+		if (this.suspicion > SUSPICION_MAX) {
+			gameOver = true;
+			console.log('gameover');
 		}
 	};
 	
