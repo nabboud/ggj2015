@@ -1,7 +1,8 @@
 function Crowd(node) {
   var CROWD_NPC_LIMIT = 5;
   var SUSPICION_RANGE = 100;
-  var SUSPICION_VELOCITY = 10;
+  var SUSPICION_VELOCITY = 20;
+  var OUTRAGEOUS_VELOCITY = 500;
 
   this.node = $(node);
   this.npcs = [];
@@ -47,8 +48,9 @@ function Crowd(node) {
     var speed = player.speed;
     var x = player.node.x();
     var tooFast = (player.speed >= SUSPICION_VELOCITY);
+    var tooFastToSee = (player.speed >= OUTRAGEOUS_VELOCITY);
     var tooClose = (x >= (this.lowerX() - SUSPICION_RANGE) && x <= (this.upperX() + SUSPICION_RANGE));
-    if (tooFast && tooClose) {
+    if (tooClose && tooFast && !tooFastToSee) {
       s += 1;
       this.noticedPlayer = true;
     }
