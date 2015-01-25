@@ -15,8 +15,10 @@ function Player(node){
 	this.runSpeed = 25;
 	this.rightDown = false;
 	this.leftDown = false;
-	this.invistime = 3;
-	this.invispowers = 3;
+
+	this.invistime = 3000;
+	this.invistimer = null;
+	this.inviscount = 3;
 	this.invisrange = 50;
 	this.invisstate = false;
 
@@ -44,15 +46,13 @@ function Player(node){
 	};
 
 	this.invisibility = function(){
-		console.log("invis should activate");
-		if(this.inviscount > 0){
-			invisstate = true;
+		if(this.inviscount > 0 && !this.invisstate){
+			this.invistimer = new Date();
+			this.invisstate = true;
 			this.setAnimation();
-			this.invispowers -= 1;
-			if (this.invisrange < SUSPICION_RANGE){
-				this.suspicion += 10;
-			}
+			this.inviscount--;
 		}
+		console.log(this.inviscount);
 	};
 	
 	// This function damage the ship and return true if this cause the ship to die 
@@ -97,8 +97,6 @@ function Player(node){
 			var acc = this.acceleration(1);
 			this.speed += acc;
 			this.speed = Math.min(this.speed, this.topSpeed);
-
-			this.setAnimation();
 		}
 
 		if (this.leftDown){
@@ -106,9 +104,16 @@ function Player(node){
 			var acc = this.acceleration(-1);
 			this.speed += acc;
 			this.speed = Math.max(this.speed, -this.topSpeed);
-
-			this.setAnimation();
 		}
+
+		if (this.invisstate){
+			var tempDate = new Date();
+			if (+tempDate - +this.invistimer > this.invistime){
+				this.invisstate = false;
+			}
+		}
+
+		this.setAnimation();
 	};
 
 	this.keydown = function(keyCode){
@@ -164,6 +169,7 @@ function Player(node){
 		if (this.invisstate == true){
 			newAnimation += "-invisible";
 		}
+
 		if (newAnimation != this.currentAnimation){
 			$("#playerBody").setAnimation(playerAnimation[newAnimation]);
 			this.currentAnimation = newAnimation;
@@ -173,10 +179,12 @@ function Player(node){
 	// Adjust the player's suspicion value
 	this.increaseSuspicion = function(value) {
 		value = parseInt(value);
-		this.suspicion += value;
-		if (this.suspicion > SUSPICION_MAX) {
-			gameOver = true;
-			console.log('gameover');
+		if (!this.invisstate){
+			this.suspicion += value;
+			if (this.suspicion > SUSPICION_MAX) {
+				gameOver = true;
+				console.log('gameover');
+			}
 		}
 	};
 	
