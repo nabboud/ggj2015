@@ -2,7 +2,7 @@
 var SUSPICION_RANGE = 200;
 function Crowd(node) {
   var CROWD_NPC_LIMIT = 5;
-  var SUSPICION_VELOCITY = 20;
+  var SUSPICION_VELOCITY = 25;
   var OUTRAGEOUS_VELOCITY = 50;
 
   this.node = $(node);

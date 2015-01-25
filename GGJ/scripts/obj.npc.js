@@ -23,7 +23,7 @@ function NPC(node, x) {
       back: {
           normal: "images/npc/npc2_back.png",
           e: "images/npc/npc2_back_e.png",
-          s: "imges/npc/npc2_back_s.png"
+          s: "images/npc/npc2_back_s.png"
         }
       },
     npc3: {
@@ -35,7 +35,7 @@ function NPC(node, x) {
       back: {
           normal: "images/npc/npc3_back.png",
           e: "images/npc/npc3_back_e.png",
-          s: "imges/npc/npc3_back_s.png"
+          s: "images/npc/npc3_back_s.png"
         }
       },
   };
@@ -47,19 +47,25 @@ function NPC(node, x) {
   this.node.wh(NPC_SPRITE_WIDTH, NPC_SPRITE_HEIGHT);
 
   // Pick the active sprite image for the NPC
-  this.spriteImageURL = function() {
-    console.log(this.spriteIndex);
-
-    if (!this.forward)
-      var url = SPRITE_IMAGES['npc' + this.spriteIndex].back.normal;
-    else
-      var url = SPRITE_IMAGES['npc'+ this.spriteIndex].forward.normal;
+  this.spriteImageURL = function(player) {
+    var url = SPRITE_IMAGES['npc' + this.spriteIndex].back.normal
+    if (!player && !this.forward){
+        url = SPRITE_IMAGES['npc' + this.spriteIndex].back.normal;
+    } else {
+      if (!player.invisstate && player.speed > 25){
+        if (this.forward){
+          url = SPRITE_IMAGES['npc' + this.spriteIndex].forward.s;
+        } else {
+          url = SPRITE_IMAGES['npc' + this.spriteIndex].back.s;
+        }
+      }
+    }
     return url;
   }
 
   this.forward = Math.floor(Math.random() * 2) % 2 == 1 ? true : false;
   this.spriteIndex = Math.floor(Math.random() * 3) + 1;
-  this.spriteAnimation = new $.gQ.Animation({imageURL: this.spriteImageURL()});
+  
 
   // updates the position of the NPC
   this.updateX = function(npcNode){
@@ -76,7 +82,10 @@ function NPC(node, x) {
   }
 
   this.update = function() {
-    console.log('NPC update');
+    var tempPlayer = $("#player")[0].player;
+    this.spriteAnimation = new $.gQ.Animation({imageURL: this.spriteImageURL(tempPlayer)});
+    this.node.setAnimation(this.spriteAnimation);
+
   };
 
 }
