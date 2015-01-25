@@ -135,6 +135,12 @@ function Player(node){
 		}
 	};
 
+	// Adjust the player's suspicion value
+	this.increaseSuspicion = function(value) {
+		value = parseInt(value);
+		this.suspicion += value;
+	}
+	
 	return true;
 }
 

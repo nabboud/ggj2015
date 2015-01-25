@@ -173,7 +173,7 @@ $(function(){
   }
 
 	//this is the HUD for the player life and suspicion
-	$("#overlay").append("<div id='suspicionHUD'style='color: black; width: 100px; position: absolute; left: 0px; font-family: verdana, sans-serif;'></div><div id='timerHUD'style='color: black; width: 100px; position: absolute; right: 0px; font-family: verdana, sans-serif;'></div>")
+	$("#overlay").append("<div id='suspicionHUD'style='color: black; width: 150px; position: absolute; left: 0px; font-family: verdana, sans-serif;'></div><div id='speedHUD'style='color: black; width: 250px; position: absolute; left: 160px; font-family: verdana, sans-serif;'></div><div id='timerHUD'style='color: black; width: 100px; position: absolute; right: 0px; font-family: verdana, sans-serif;'></div>")
 	
 	// this sets the id of the loading bar:
 	$.loadCallback(function(percent){
@@ -190,8 +190,11 @@ $(function(){
 	// this is the function that control most of the game logic 
 	$.playground().registerCallback(function(){
 		if(!gameOver){
+      var s = $('#crowd')[0].crowd.increasePlayerSuspsicion($('#player')[0].player);
+      $('#player')[0].player.increaseSuspicion(s);
+
 			$("#suspicionHUD").html("suspicion: "+$("#player")[0].player.suspicion);
-			$("#lifeHUD").html("life: "+$("#player")[0].player.replay);
+			$("#speedHUD").html("speed: "+$("#player")[0].player.speed);
 			$("#timerHUD").html("time: "+$("#player")[0].player.timer);
 			//Update the movement of the ship:
 			

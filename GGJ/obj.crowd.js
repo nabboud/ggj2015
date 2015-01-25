@@ -1,5 +1,6 @@
 var CROWD_NPC_LIMIT = 5;
 var SUSPICION_RANGE = 100;
+var SUSPICION_VELOCITY = 10;
 
 function Crowd(node) {
   this.node = $(node);
@@ -17,6 +18,7 @@ function Crowd(node) {
   	this.npcs.push(npc);
   }
 
+  // Lower x bound of the NPCs
   this.lowerX = function() {
     var x;
     for (i = 0; i < this.npcs.length; i++) {
@@ -26,6 +28,7 @@ function Crowd(node) {
     return x;
   }
 
+  // Upper x bound of the NPCs
   this.upperX = function() {
     var x;
     for (i = 0; i < this.npcs.length; i++) {
@@ -33,5 +36,19 @@ function Crowd(node) {
         x = this.npcs[i].node.x();
     }
     return x;
+  }
+
+  // Determines how much to add to the player suspicion
+  this.increasePlayerSuspsicion = function(player) {
+    var s = 0;
+    var speed = player.speed;
+    var x = player.node.x();
+    if (player.speed >= SUSPICION_VELOCITY) {
+      s += 1;
+    }
+    if (x >= (this.lowerX() - SUSPICION_RANGE) && x <= (this.upperX() + SUSPICION_RANGE)) {
+      s += 1;
+    }
+    return s;
   }
 }
