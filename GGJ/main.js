@@ -154,10 +154,28 @@ $(function(){
 							.addSprite("playerBody",{animation: playerAnimation["idle-forward"], posx: 0, posy: 0, width: 100, height: 100})
 						.end()
 					.end()
+					.addGroup("interactibles",{width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
+					  .addGroup("crowd", {width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT})
+					  .end()
+					.end()
 					.addGroup("overlay",{width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT});
 	
 	$("#player")[0].player = new Player($("#player"));
-	
+
+$("#npc").addClass("npc")
+var npcCount = Math.floor((Math.random() * 4) + 1) + 1;
+for (var i = 0; i < npcCount; i++) {
+	var name = 'npc' + i;
+	var px = 200;
+	var w = 150;
+	var h = 52;
+	var offset = Math.floor((Math.random() * 100) + 1) - 50;
+	$("#crowd").addSprite(name, 
+		{animation: new $.gQ.Animation({imageURL: "minion_idle.png", numberOfFrame: 5, delta: 52, rate: 60, type: $.gQ.ANIMATION_VERTICAL}), 
+		posx: px + offset, posy: PLAYGROUND_HEIGHT - 2 * h, width: 150, height: 52});
+	$('#npc')[i] = new NPC($("#npc"));
+}
+
 	//this is the HUD for the player life and suspicion
 	$("#overlay").append("<div id='suspicionHUD'style='color: black; width: 100px; position: absolute; left: 0px; font-family: verdana, sans-serif;'></div><div id='timerHUD'style='color: black; width: 100px; position: absolute; right: 0px; font-family: verdana, sans-serif;'></div>")
 	
