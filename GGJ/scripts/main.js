@@ -155,6 +155,7 @@ $(function(){
 			
 			$("#player")[0].player.update();
 
+			// if moving background
 			if ($('#player').x() >= 200 && $("#player")[0].player.speed > 0){
 				var newPos = ($("#background1").x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
 				$("#background1").x(newPos);
@@ -164,26 +165,35 @@ $(function(){
 
 				distanceTraved += $("#player")[0].player.speed;
 
-  			if ($('#crowd')[0].crowd && $('#crowd')[0].crowd.upperX() < 0) {
-  				$('#crowd')[0].crowd = null;
-  			}
-  			else if (!$('#crowd')[0].crowd) {
-  				var chance = Math.floor(Math.random() * 20) % 20;
-    			if (chance == 0) {
-    				newCrowd(PLAYGROUND_WIDTH + 200);
-    			}
-  			}
-  			else {
-					$('.npc').each(function() {	
-        			$(this).x(($(this).x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH);
-    			});
-  			}
+				// if crowd off screen
+	  			if ($('#crowd')[0].crowd && $('#crowd')[0].crowd.upperX() < 0) {
+
+	  				$('#crowd')[0].crowd = null;
+
+	  			} else if (!$('#crowd')[0].crowd) {
+	  				// if not croud, make a croud, maybe?
+	  				var chance = Math.floor(Math.random() * 20) % 20;
+	    			if (chance == 0) {
+	    				newCrowd(PLAYGROUND_WIDTH + 200);
+	    			}
+	  			} else {
+	  				// move the croud
+					$('.npc').each(function() {
+	        			$(this).x(($(this).x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH);
+	    			});
+
+	  			}
 			} else {
+				// move player
 				var nextpos = $("#player").x() + $("#player")[0].player.speed;
 				if(nextpos > 0){
 					$("#player").x(nextpos);
 				}
 			}
+
+			$('.npc').each(function() {	
+				$(this)[0].npc.update();
+			});			
 
 			if(jQuery.gameQuery.keyTracker[65]){ //this is left! (a)
 

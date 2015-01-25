@@ -1,17 +1,44 @@
 function NPC(node, x) {
   var NPC_SPRITE_WIDTH = 60;
   var NPC_SPRITE_HEIGHT = 150;
-  var SPRITE_IMAGES = [
-    {forward: "images/npc1_forward.png", back: "images/npc1_back.png"},
-    {forward: "images/npc2_forward.png", back: "images/npc2_back.png"},
-    {forward: "images/npc3_forward.png", back: "images/npc3_back.png"},
-    {forward: "images/npc1_forward_e.png", back: "images/npc1_back.png"},
-    {forward: "images/npc2_forward_e.png", back: "images/npc2_back.png"},
-    {forward: "images/npc3_forward_e.png", back: "images/npc3_back.png"},
-    {forward: "images/npc1_forward_s.png", back: "images/npc1_back.png"},
-    {forward: "images/npc2_forward_s.png", back: "images/npc2_back.png"},
-    {forward: "images/npc3_forward_s.png", back: "images/npc3_back.png"}
-  ];
+  var SPRITE_IMAGES = {
+    npc1: {
+      forward: {
+          normal: "images/npc/npc1_forward.png",
+          e: "images/npc/npc1_forward_e.png",
+          s: "images/npc/npc1_forward_s.png"
+        },
+      back: {
+          normal: "images/npc/npc1_back.png",
+          e: "images/npc/npc1_back_e.png",
+          s: "images/npc/npc1_back_s.png"
+        },        
+      },
+    npc2: {
+      forward: {
+          normal: "images/npc/npc2_forward.png",
+          e: "images/npc/npc2_forward_e.png",
+          s: "images/npc/npc2_forward_s.png"
+        },
+      back: {
+          normal: "images/npc/npc2_back.png",
+          e: "images/npc/npc2_back_e.png",
+          s: "imges/npc/npc2_back_s.png"
+        }
+      },
+    npc3: {
+      forward: {
+          normal: "images/npc/npc3_forward.png",
+          e: "images/npc/npc3_forward_e.png",
+          s: "images/npc/npc3_forward_s.png"
+        },
+      back: {
+          normal: "images/npc/npc3_back.png",
+          e: "images/npc/npc3_back_e.png",
+          s: "imges/npc/npc3_back_s.png"
+        }
+      },
+  };
 
   this.node = $(node);
   this.node.addClass('npc');
@@ -21,16 +48,18 @@ function NPC(node, x) {
 
   // Pick the active sprite image for the NPC
   this.spriteImageURL = function() {
+    console.log(this.spriteIndex);
+
     if (!this.forward)
-      var url = SPRITE_IMAGES[this.spriteIndex].back;
+      var url = SPRITE_IMAGES['npc' + this.spriteIndex].back.normal;
     else
-      var url = SPRITE_IMAGES[this.spriteIndex].forward;
+      var url = SPRITE_IMAGES['npc'+ this.spriteIndex].forward.normal;
     return url;
   }
 
   this.forward = Math.floor(Math.random() * 2) % 2 == 1 ? true : false;
-  this.spriteIndex = Math.floor(Math.random() * SPRITE_IMAGES.length);
-  this.spriteAnimation = new $.gQ.Animation({imageURL: this.spriteImageURL(), numberOfFrame: 1, delta: 52, rate: 60, type: $.gQ.ANIMATION_VERTICAL});
+  this.spriteIndex = Math.floor(Math.random() * 3) + 1;
+  this.spriteAnimation = new $.gQ.Animation({imageURL: this.spriteImageURL()});
 
   // updates the position of the NPC
   this.updateX = function(npcNode){
@@ -45,4 +74,9 @@ function NPC(node, x) {
   this.spriteHeight = function() {
     return NPC_SPRITE_HEIGHT;
   }
+
+  this.update = function() {
+    console.log('NPC update');
+  };
+
 }
