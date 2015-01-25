@@ -263,7 +263,9 @@ $(function(){
 
 			}
 
-			gameOver = (distanceTraved >= gameDistance);
+			if (distanceTraved >= gameDistance){
+				gameover = true;
+			}
 			$('#distanceHUD').html(((distanceTraved/gameDistance)*100).toFixed(3) + '%');
 
 		} else {
@@ -275,7 +277,7 @@ $(function(){
 						restartgame();
 					});
 				$("#welcomeScreen")
-					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/gameover.png); font-family: verdana, sans-serif;')
+					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/happyending.png); font-family: verdana, sans-serif;')
 					.fadeTo(1000, 1);
 
 			} else {

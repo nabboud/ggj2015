@@ -1,5 +1,5 @@
 function Player(node){
-  var SUSPICION_MAX = 99; // The game will end at MAX + 1
+  var SUSPICION_MAX = 24; // The game will end at MAX + 1
 
 	this.node = node;
 	//this.animations = animations;
@@ -13,6 +13,8 @@ function Player(node){
 	this.runInput = false;
 	this.facingRight = true;
 	this.runSpeed = 25;
+	this.rightDown = false;
+	this.leftDown = false;
 
 	this.currentAnimation = 'idle-forward';
 
@@ -73,27 +75,34 @@ function Player(node){
 			$(this.node).fadeTo(500, 1); 
 			this.respawnTime = -1;
 		}
+
+		if (this.rightDown){
+			this.runInput = true;
+			var acc = this.acceleration(1);
+			this.speed += acc;
+			this.speed = Math.min(this.speed, this.topSpeed);
+
+			this.setAnimation();
+		}
+
+		if (this.leftDown){
+			this.runInput = true;
+			var acc = this.acceleration(-1);
+			this.speed += acc;
+			this.speed = Math.max(this.speed, -this.topSpeed);
+
+			this.setAnimation();
+		}
 	};
 
 	this.keydown = function(keyCode){
 
 		switch(keyCode){
 			case 65: //this is left! (a)
-				this.runInput = true;
-				var acc = this.acceleration(-1);
-				this.speed += acc;
-				//(this.speed > -(this.topSpeed - acc)) ? (this.speed -= acc) : -this.topSpeed;
-
-				this.setAnimation();
+				this.leftDown = true;
 				break;
 			case 68: //this is right (d)
-				this.runInput = true;
-				var acc = this.acceleration(1);
-				this.speed += acc;
-
-				this.setAnimation();
-				
-				//this.speed = (this.speed < (this.topSpeed - acc)) ? (this.speed += acc) : this.topSpeed;
+				this.rightDown = true;
 				break;
 		}
 	};
@@ -102,11 +111,11 @@ function Player(node){
 		switch(keyCode){
 			case 65: //this is left! (a)
 				this.runInput = false;
-				
+				this.leftDown = false;
 				break;
 			case 68: //this is right (d)
 				this.runInput = false;
-				
+				this.rightDown = false;
 				break;
 		}
 	};
@@ -148,7 +157,7 @@ function Player(node){
 			gameOver = true;
 			console.log('gameover');
 		}
-	}
+	};
 	
 	return true;
 }
