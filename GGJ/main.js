@@ -279,7 +279,14 @@ $(function(){
 					.fadeTo(1000, 1);
 
 			} else {
-				restartgame();	
+				$("#startbutton")
+					.html('Replay')
+					.click(function(){
+						restartgame();
+					});
+				$("#welcomeScreen")
+					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/gameover.png); font-family: verdana, sans-serif;')
+					.fadeTo(1000, 1);
 			}
 		}
 	}, REFRESH_RATE);
