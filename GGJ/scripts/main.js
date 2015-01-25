@@ -155,7 +155,8 @@ $(function(){
 	    	sounds.invisible.play();
 	    }
 
-			$("#suspicionHUD").html("suspicion: "+$("#player")[0].player.suspicion);
+			$("#suspicionHUD").html('<img src="images/HUD/susp-' + (Math.round($("#player")[0].player.suspicion/5) + 1) + '.png"</img>');
+			console.log($("#player")[0].player.suspicion);
 			$("#speedHUD").html("speed: " + ($("#player")[0].player.speed).toFixed(2));
  			$('#timerHUD')[0].watch.updateTimer();
 			
