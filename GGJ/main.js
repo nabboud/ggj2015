@@ -167,11 +167,9 @@ $(function(){
       var w = 60;
       var h = 100;
       var offset = Math.floor((Math.random() * 100) + 1) - 50;
-      $("#crowd").addSprite(name, 
-        {animation: new $.gQ.Animation({imageURL: "images/npc.png", numberOfFrame: 1, delta: 52, rate: 60, type: $.gQ.ANIMATION_VERTICAL}), 
-        posx: px + offset, posy: PLAYGROUND_HEIGHT - 160, width: w, height: h});
-            $('#' + name).addClass('npc');
-      $('#' + name)[0].npc = new NPC($('#' + name));
+      $("#crowd").addSprite(name);
+      $('#' + name)[0].npc = new NPC($('#' + name), px + offset);
+      $('#' + name).setAnimation($('#' + name)[0].npc.spriteAnimation);
       $('#crowd')[0].crowd.add($('#' + name)[0].npc);
     }
   }
