@@ -56,7 +56,6 @@ function Player(node){
 			this.setAnimation();
 			this.inviscount--;
 		}
-		console.log(this.inviscount);
 	};
 	
 	// This function damage the ship and return true if this cause the ship to die 
@@ -126,11 +125,13 @@ function Player(node){
 	this.keydown = function(keyCode){
 
 		switch(keyCode){
-			case 65: //this is left! (a)
+			case 37: //this is left! (a)
 				this.leftDown = true;
+				this.rightDown = false;
 				break;
-			case 68: //this is right (d)
+			case 39: //this is right (d)
 				this.rightDown = true;
+				this.leftDown = false;
 				break;
 			case 32:
 				this.invisibility();
@@ -140,11 +141,11 @@ function Player(node){
 
 	this.keyup = function(keyCode){
 		switch(keyCode){
-			case 65: //this is left! (a)
+			case 37: //this is left! (a)
 				this.runInput = false;
 				this.leftDown = false;
 				break;
-			case 68: //this is right (d)
+			case 39: //this is right (d)
 				this.runInput = false;
 				this.rightDown = false;
 				break;
@@ -191,7 +192,6 @@ function Player(node){
 		}
 		if (this.suspicion > SUSPICION_MAX) {
 			gameOver = true;
-			console.log('gameover');
 		}
 	};
 	
