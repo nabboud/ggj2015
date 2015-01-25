@@ -172,6 +172,7 @@ $(function(){
       $("#crowd").addSprite(name);
       $('#' + name)[0].npc = new NPC($('#' + name), px + offset);
       $('#' + name).setAnimation($('#' + name)[0].npc.spriteAnimation);
+      console.log( $('#' + name));
       $('#crowd')[0].crowd.add($('#' + name)[0].npc);
     }
   }

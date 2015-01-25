@@ -1,8 +1,8 @@
-var CROWD_NPC_LIMIT = 5;
-var SUSPICION_RANGE = 100;
-var SUSPICION_VELOCITY = 10;
-
 function Crowd(node) {
+  var CROWD_NPC_LIMIT = 5;
+  var SUSPICION_RANGE = 100;
+  var SUSPICION_VELOCITY = 10;
+
   this.node = $(node);
   this.npcs = [];
 

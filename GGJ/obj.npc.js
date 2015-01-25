@@ -1,18 +1,34 @@
-var NPC_SPRITE_WIDTH = 60;
-var NPC_SPRITE_HEIGHT = 100;
-
 function NPC(node, x) {
+  var NPC_SPRITE_WIDTH = 60;
+  var NPC_SPRITE_HEIGHT = 100;
+  var SPRITE_IMAGES = [
+    {forward: "images/npc1_forward.png", back: "images/npc1_back.png"},
+    {forward: "images/npc2_forward.png", back: "images/npc2_back.png"},
+    {forward: "images/npc3_forward.png", back: "images/npc3_back.png"}
+  ];
+
   this.node = $(node);
   this.node.addClass('npc');
   this.node.x(x);
-  this.node.y(PLAYGROUND_HEIGHT - 120);
+  this.node.y(PLAYGROUND_HEIGHT - 160);
   this.node.wh(NPC_SPRITE_WIDTH, NPC_SPRITE_HEIGHT);
 
-  this.spriteAnimation = new $.gQ.Animation({imageURL: "images/npc1_back.png", numberOfFrame: 1, delta: 52, rate: 60, type: $.gQ.ANIMATION_VERTICAL});
+  // Pick the active sprite image for the NPC
+  this.spriteImageURL = function() {
+    if (!this.forward)
+      var url = SPRITE_IMAGES[this.spriteIndex].back;
+    else
+      var url = SPRITE_IMAGES[this.spriteIndex].forward;
+    return url;
+  }
 
-  // updates the position of the enemy
+  this.forward = true;
+  this.spriteIndex = Math.floor(Math.random() * SPRITE_IMAGES.length);
+  this.spriteAnimation = new $.gQ.Animation({imageURL: this.spriteImageURL(), numberOfFrame: 1, delta: 52, rate: 60, type: $.gQ.ANIMATION_VERTICAL});
+
+  // updates the position of the NPC
   this.updateX = function(npcNode){
     var shift = Math.floor((Math.random() * 2) + 1) - 1;
     this.node.x(shift, true);
-  };  
+  };
 }
