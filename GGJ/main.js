@@ -160,9 +160,9 @@ $(function(){
 
 
   // Generate the crowd NPCs
-  if (crowdOn) {
+  var newCrowd = function(px) {
+   	$('.npc').each(function() { $(this).remove(); }); // clear out old NPCs
   	$("#crowd")[0].crowd = new Crowd($("#crowd"));
-    var px = -1 * Math.floor((Math.random() * PLAYGROUND_WIDTH) + 1); // \start the crowd off-screen
     var npcCount = Math.floor((Math.random() * 4) + 1) + 1;
     for (var i = 0; i < npcCount; i++) {
       var name = 'npc' + i;
@@ -174,6 +174,10 @@ $(function(){
       $('#' + name).setAnimation($('#' + name)[0].npc.spriteAnimation);
       $('#crowd')[0].crowd.add($('#' + name)[0].npc);
     }
+  }
+  if (crowdOn) {
+    var px = PLAYGROUND_WIDTH / 2;
+  	newCrowd(-1*px);
   }
 
 	//this is the HUD for the player life and suspicion
@@ -195,12 +199,13 @@ $(function(){
 	// this is the function that control most of the game logic 
 	$.playground().registerCallback(function(){
 		if(!gameOver){
-	      var s = $('#crowd')[0].crowd.increasePlayerSuspsicion($('#player')[0].player);
-	      $('#player')[0].player.increaseSuspicion(s);
+			if ($('#crowd')[0].crowd) {
+        var s = $('#crowd')[0].crowd.increasePlayerSuspsicion($('#player')[0].player);
+        $('#player')[0].player.increaseSuspicion(s);
+      }
 
 			$("#suspicionHUD").html("suspicion: "+$("#player")[0].player.suspicion);
 			$("#speedHUD").html("speed: " + ($("#player")[0].player.speed).toFixed(2));
-
  			$('#timerHUD')[0].watch.updateTimer();
 			
 			//Update the movement of the ship:
@@ -214,9 +219,17 @@ $(function(){
 				newPos = ($("#background2").x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH;
 				$("#background2").x(newPos);
 
-				$('.npc').each(function() {	
-	            	$(this).x(($(this).x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH);
-	        	});
+      	if ($('#crowd')[0].crowd && $('#crowd')[0].crowd.upperX() < 0) {
+      		var chance = Math.floor(Math.random() * 20) % 20;
+      		if (chance == 0) {
+      			newCrowd(PLAYGROUND_WIDTH + 200);
+      		}
+      	}
+      	else {
+					$('.npc').each(function() {	
+	          	$(this).x(($(this).x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH);
+	      	});
+      	}
 			} else {
 
 				var nextpos = $("#player").x() + $("#player")[0].player.speed;

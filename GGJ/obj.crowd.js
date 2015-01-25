@@ -5,6 +5,7 @@ function Crowd(node) {
 
   this.node = $(node);
   this.npcs = [];
+  this.noticedPlayer = false;
 
   // Returns the number of NPCs in the crowd
   this.count = function() {
@@ -32,14 +33,16 @@ function Crowd(node) {
   this.upperX = function() {
     var x;
     for (i = 0; i < this.npcs.length; i++) {
-      if (!x || this.npcs[i].node.x() > x)
-        x = this.npcs[i].node.x();
+      if (!x || (this.npcs[i].node.x() + this.npcs[i].spriteWidth()) > x)
+        x = this.npcs[i].node.x() + this.npcs[i].spriteWidth();
     }
     return x;
   }
 
   // Determines how much to add to the player suspicion
   this.increasePlayerSuspsicion = function(player) {
+    if (this.noticedPlayer)
+      return 0;
     var s = 0;
     var speed = player.speed;
     var x = player.node.x();
@@ -47,6 +50,7 @@ function Crowd(node) {
     var tooClose = (x >= (this.lowerX() - SUSPICION_RANGE) && x <= (this.upperX() + SUSPICION_RANGE));
     if (tooFast && tooClose) {
       s += 1;
+      this.noticedPlayer = true;
     }
     return s;
   }

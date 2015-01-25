@@ -31,4 +31,12 @@ function NPC(node, x) {
     var shift = Math.floor((Math.random() * 2) + 1) - 1;
     this.node.x(shift, true);
   };
+
+  this.spriteWidth = function() {
+    return NPC_SPRITE_WIDTH;
+  }
+
+  this.spriteHeight = function() {
+    return NPC_SPRITE_HEIGHT;
+  }
 }
