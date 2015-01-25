@@ -122,6 +122,8 @@ $(function(){
 		</div> \
 		<div id='distanceHUD'style='color: black; width: 100px; position: absolute; left: 320px; font-family: verdana, sans-serif;'> \
 		</div> \
+		<div id='invisibleBubHUD'style='width: 100px; position: absolute; left: 420px; height: 30px'> \
+		</div> \
 		<div id='timerHUD'style='color: cyan; background: black; position: absolute; right: 0px; font-family: verdana, sans-serif;'> \
 		</div>");
 
@@ -135,6 +137,12 @@ $(function(){
 			 $("#select-button").show();
 		}, 25000);
 	}
+
+	var invisiBubbleHTML = '';
+	for (var i = 0; i < 3; i++){
+		invisiBubbleHTML += '<img src="images/HUD/in.png">'; 
+	}					
+	$('#invisibleBubHUD').html(invisiBubbleHTML);
 
 	$("#select-button").click(function(){
 		$.playground().startGame(function(){
@@ -163,7 +171,6 @@ $(function(){
 	    }
 
 			$("#suspicionHUD").html('<img src="images/HUD/susp-' + Math.min((Math.round($("#player")[0].player.suspicion/5) + 1), 5) + '.png"</img>');
-			console.log($("#player")[0].player.suspicion);
 			$("#speedHUD").html("speed: " + ($("#player")[0].player.speed).toFixed(2));
  			$('#timerHUD')[0].watch.updateTimer();
 			

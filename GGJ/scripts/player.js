@@ -6,7 +6,7 @@ function Player(node){
 
 	this.grace = false;
 	this.replay = 3;
-	this.suspicion = 0; 
+	this.suspicion = 0;
 	this.respawnTime = -1;
 	this.speed = 0;
 	this.topSpeed = 150;
@@ -53,9 +53,14 @@ function Player(node){
 			}
 			this.invistimer = new Date();
 			this.invisstate = true;
-			this.setAnimation();
+			this.setAnimation();			
 			this.inviscount--;
 		}
+		var invisiBubbleHTML = '';
+		for (var i = 0; i < this.inviscount; i++){
+			invisiBubbleHTML += '<img src="images/HUD/in.png">'; 
+		}					
+		$('#invisibleBubHUD').html(invisiBubbleHTML);
 	};
 	
 	// This function damage the ship and return true if this cause the ship to die 
@@ -194,6 +199,12 @@ function Player(node){
 			gameOver = true;
 		}
 	};
+
+	var invisiBubbleHTML = '';
+	for (var i = 0; i < this.inviscount; i++){
+		invisiBubbleHTML += '<img src="images/HUD/in.png">'; 
+	}					
+	$('#invisibleBubHUD').html(invisiBubbleHTML);
 	
 	return true;
 }
