@@ -72,9 +72,9 @@ $(function(){
 						.addSprite("background2", {animation: background2, width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT, posx: PLAYGROUND_WIDTH})
 					.end()
 					.addGroup("actors", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
-					  .addGroup("crowd", {width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT})
-					  .addGroup("interactables",{width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
-						.addGroup("player", {posx: 100, posy: PLAYGROUND_HEIGHT - 170, width: 60, height: 100})
+					  	.addGroup("crowd", {width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT})
+					  	.end()
+					  	.addGroup("player", {posx: 100, posy: PLAYGROUND_HEIGHT - 170, width: 60, height: 100})
 							.addSprite("playerBody",{animation: playerAnimation["idle-forward"], posx: 0, posy: 0, width: 60, height: 100})
 						.end()
 					.end()
@@ -118,9 +118,6 @@ $(function(){
 
 	$("#timerHUD")[0].watch = new Watch($("#timerHUD"));
 	// this sets the id of the loading bar:
-	$.loadCallback(function(percent){
-		//$("#loadingBar").width(400*percent);
-	});
 	
 	//initialize the start button
 	$("#select-button").click(function(){

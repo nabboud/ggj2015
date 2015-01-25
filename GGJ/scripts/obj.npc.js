@@ -1,6 +1,6 @@
 function NPC(node, x) {
   var NPC_SPRITE_WIDTH = 60;
-  var NPC_SPRITE_HEIGHT = 100;
+  var NPC_SPRITE_HEIGHT = 150;
   var SPRITE_IMAGES = [
     {forward: "images/npc1_forward.png", back: "images/npc1_back.png"},
     {forward: "images/npc2_forward.png", back: "images/npc2_back.png"},
