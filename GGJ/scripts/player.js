@@ -15,6 +15,10 @@ function Player(node){
 	this.runSpeed = 25;
 	this.rightDown = false;
 	this.leftDown = false;
+	this.invistime = 3;
+	this.invispowers = 3;
+	this.invisrange = 50;
+	this.invisstate = false;
 
 	this.currentAnimation = 'idle-forward';
 
@@ -37,6 +41,16 @@ function Player(node){
 			return 3*direction;
 		}
 		return direction*Math.atan(Math.abs(this.speed)) + Math.random()*direction;
+	};
+
+	this.invisibility = function(){
+		if(this.inviscount > 0){
+			invisstate = true;
+			this.invispowers -= 1;
+			if (this.invisrange < SUSPICION_RANGE){
+				this.suspicion += 10;
+			}
+		}
 	};
 	
 	// This function damage the ship and return true if this cause the ship to die 
