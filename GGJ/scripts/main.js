@@ -221,7 +221,7 @@ $(function(){
 			if (distanceTraved >= gameDistance){
 				gameOver = true;
 			}
-			$('#distanceHUD').html(((distanceTraved/gameDistance)*62 + 1).toFixed(0) + ' St');
+			$('#distanceHUD').html(((distanceTraved/gameDistance)*62).toFixed(0) + ' St');
 
 		} else if (gameOver && !buttonScreen){
 			if (distanceTraved >= gameDistance){
