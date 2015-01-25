@@ -44,11 +44,13 @@ function Player(node){
 	};
 
 	this.invisibility = function(){
+		console.log("invis should activate");
 		if(this.inviscount > 0){
 			invisstate = true;
+			this.setAnimation();
 			this.invispowers -= 1;
 			if (this.invisrange < SUSPICION_RANGE){
-				this.suspicion += ;
+				this.suspicion += 10;
 			}
 		}
 	};
@@ -117,6 +119,9 @@ function Player(node){
 				break;
 			case 68: //this is right (d)
 				this.rightDown = true;
+				break;
+			case 32:
+				this.invisibility();
 				break;
 		}
 	};
