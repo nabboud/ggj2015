@@ -52,11 +52,19 @@ function NPC(node, x) {
     if (!player && !this.forward){
         url = SPRITE_IMAGES['npc' + this.spriteIndex].back.normal;
     } else {
-      if (!player.invisstate && player.speed > 25){
-        if (this.forward){
-          url = SPRITE_IMAGES['npc' + this.spriteIndex].forward.s;
-        } else {
-          url = SPRITE_IMAGES['npc' + this.spriteIndex].back.s;
+      if (!player.invisstate){
+        if(player.speed >= 25){
+          if (this.forward){
+            url = SPRITE_IMAGES['npc' + this.spriteIndex].forward.s;
+          } else {
+            url = SPRITE_IMAGES['npc' + this.spriteIndex].back.s;
+          }
+        } else if (Math.abs(this.node.x() - player.node.x()) < SUSPICION_RANGE){
+          if (this.forward){
+            url = SPRITE_IMAGES['npc' + this.spriteIndex].forward.e;
+          } else {
+            url = SPRITE_IMAGES['npc' + this.spriteIndex].back.e;
+          }
         }
       }
     }
