@@ -32,77 +32,6 @@ function restartgame(){
 };
 
 
-// function Enemy(node){
-// 	this.suspicion	= 2;
-// 	this.speedx	= -5;
-// 	this.speedy	= 0;
-// 	this.node = $(node);
-	
-// 	// deals with damage endured by an enemy
-// 	this.damage = function(){
-// 		this.suspicion--;
-// 		if(this.suspicion == 0){
-// 			return true;
-// 		}
-// 		return false;
-// 	};
-	
-// 	// updates the position of the enemy
-// 	this.update = function(playerNode){
-// 		this.updateX(playerNode);
-// 		this.updateY(playerNode);
-// 	};	
-// 	this.updateX = function(playerNode){
-// 		this.node.x(this.speedx, true);
-// 	};
-// 	this.updateY= function(playerNode){
-// 		var newpos = parseInt(this.node.css("top"))+this.speedy;
-// 		this.node.y(this.speedy, true);
-// 	};
-// }
-
-	// function Minion(node){
-	// 	this.node = $(node);
-	// }
-	// Minion.prototype = new Enemy();
-	// Minion.prototype.updateY = function(playerNode){
-		
-	// 	if(this.node.y() > (PLAYGROUND_HEIGHT - 100)){
-	// 		this.node.y(-2, true)
-	// 	}
-	// }
-
-
-// function Brainy(node){
-// 	this.node = $(node);
-// 	this.suspicion	= 5;
-// 	this.speedy = 1;
-// 	this.alignmentOffset = 5;
-// }
-// Brainy.prototype = new Enemy();
-// Brainy.prototype.updateY = function(playerNode){
-// 	if((this.node.y()+this.alignmentOffset) > $(playerNode).y()){
-// 		this.node.y(-this.speedy, true);
-// 	} else if((this.node.y()+this.alignmentOffset) < $(playerNode).y()){
-// 		this.node.y(this.speedy, true);
-// 	}
-// }
-
-// function Bossy(node){
-// 	this.node = $(node);
-// 	this.suspicion	= 20;
-// 	this.speedx = -1;
-// 	this.alignmentOffset = 35;
-// }
-// Bossy.prototype = new Brainy();
-// Bossy.prototype.updateX = function(){
-// 	if(this.node.x() > (PLAYGROUND_WIDTH - 200)){
-// 		this.node.x(this.speedx, true)
-// 	}
-// }
-
-
-
 // --------------------------------------------------------------------------------------------------------------------
 // --                                      the main declaration:                                                     --
 // --------------------------------------------------------------------------------------------------------------------
@@ -123,28 +52,6 @@ $(function(){
 
 	playerAnimation["run-forward"]	 = new $.gQ.Animation({imageURL: "images/player-run-forward.png" , numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
 	playerAnimation["run-backward"]	 = new $.gQ.Animation({imageURL: "images/player-run-backward.png", numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
-	
-	// //  List of enemies animations :
-		// // 1st kind of enemy:
-		// enemies[0] = new Array(); // enemies have two animations
-		// enemies[0]["idle"]	= new $.gQ.Animation({imageURL: "minion_idle.png", numberOfFrame: 5, delta: 52, rate: 60, type: $.gQ.ANIMATION_VERTICAL});
-		// enemies[0]["explode"]	= new $.gQ.Animation({imageURL: "minion_explode.png", numberOfFrame: 11, delta: 52, rate: 30, type: $.gQ.ANIMATION_VERTICAL | $.gQ.ANIMATION_CALLBACK});
-		
-		// // 2nd kind of enemy:
-		// enemies[1] = new Array();
-		// enemies[1]["idle"]	= new $.gQ.Animation({imageURL: "brainy_idle.png", numberOfFrame: 8, delta: 42, rate: 60, type: $.gQ.ANIMATION_VERTICAL});
-		// enemies[1]["explode"]	= new $.gQ.Animation({imageURL: "brainy_explode.png", numberOfFrame: 8, delta: 42, rate: 60, type: $.gQ.ANIMATION_VERTICAL | $.gQ.ANIMATION_CALLBACK});
-		
-		// // 3rd kind of enemy:
-		// enemies[2] = new Array();
-		// enemies[2]["idle"]	= new $.gQ.Animation({imageURL: "bossy_idle.png", numberOfFrame: 5, delta: 100, rate: 60, type: $.gQ.ANIMATION_VERTICAL});
-		// enemies[2]["explode"]	= new $.gQ.Animation({imageURL: "bossy_explode.png", numberOfFrame: 9, delta: 100, rate: 60, type: $.gQ.ANIMATION_VERTICAL | $.gQ.ANIMATION_CALLBACK});
-		
-		// // Weapon missile:
-		// missile["player"] = new $.gQ.Animation({imageURL: "player_missile.png", numberOfFrame: 6, delta: 10, rate: 90, type: $.gQ.ANIMATION_VERTICAL});
-		// missile["enemies"] = new $.gQ.Animation({imageURL: "enemy_missile.png", numberOfFrame: 6, delta: 15, rate: 90, type: $.gQ.ANIMATION_VERTICAL});
-		// missile["playerexplode"] = new $.gQ.Animation({imageURL: "player_missile_explode.png" , numberOfFrame: 8, delta: 23, rate: 90, type: $.gQ.ANIMATION_VERTICAL | $.gQ.ANIMATION_CALLBACK});
-		// missile["enemiesexplode"] = new $.gQ.Animation({imageURL: "enemy_missile_explode.png" , numberOfFrame: 6, delta: 15, rate: 90, type: $.gQ.ANIMATION_VERTICAL | $.gQ.ANIMATION_CALLBACK});
 	
 	// Initialize the game:
 	$("#playground").playground({height: PLAYGROUND_HEIGHT, width: PLAYGROUND_WIDTH, keyTracker: true});
@@ -295,34 +202,6 @@ $(function(){
 			}
 		}
 	}, REFRESH_RATE);
-	
-	//This function manage the creation of the enemies
-		// $.playground().registerCallback(function(){
-		// 	if(!bossMode && !gameOver){
-		// 		if(Math.random() < 0.4){
-		// 			var name = "enemy1_"+Math.ceil(Math.random()*1000);
-		// 			$("#actors").addSprite(name, {animation: enemies[0]["idle"], posx: PLAYGROUND_WIDTH, posy: Math.random()*PLAYGROUND_HEIGHT,width: 150, height: 52});
-		// 			$("#"+name).addClass("enemy");
-		// 			$("#"+name)[0].enemy = new Minion($("#"+name));
-		// 		} else if (Math.random() < 0.5){
-		// 			var name = "enemy1_"+Math.ceil(Math.random()*1000);
-		// 			$("#actors").addSprite(name, {animation: enemies[1]["idle"], posx: PLAYGROUND_WIDTH, posy: Math.random()*PLAYGROUND_HEIGHT,width: 100, height: 42});
-		// 			$("#"+name).addClass("enemy");
-		// 			$("#"+name)[0].enemy = new Brainy($("#"+name));
-		// 		} else if(Math.random() > 0.8){
-		// 			bossMode = true;
-		// 			bossName = "enemy1_"+Math.ceil(Math.random()*1000);
-		// 			$("#actors").addSprite(bossName, {animation: enemies[2]["idle"], posx: PLAYGROUND_WIDTH, posy: Math.random()*PLAYGROUND_HEIGHT,width: 100, height: 100});
-		// 			$("#"+bossName).addClass("enemy");
-		// 			$("#"+bossName)[0].enemy = new Bossy($("#"+bossName));
-		// 		}
-		// 	} else {
-		// 		if($("#"+bossName).length == 0){
-		// 			bossMode = false;
-		// 		}
-		// 	}
-			
-		// }, 1000); //once per seconds is enough for this 
 	
 	//this is where the keybinding occurs
 	$(document).keydown(function(e){
