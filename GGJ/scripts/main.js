@@ -16,7 +16,8 @@ var gameDistance = 80000;
 var music = {
 	defeat: new $.gameQuery.SoundWrapper("sound/Defeat.mp3"),
 	game: new $.gameQuery.SoundWrapper("sound/Overdrive.mp3"),
-	victory: new $.gameQuery.SoundWrapper("sound/Victory.mp3")
+	victory: new $.gameQuery.SoundWrapper("sound/Victory.mp3"),
+	credits: new $.gameQuery.SoundWrapper("sound/Lovesick.mp3"),
 };
 var sounds = {
 	invisible: new $.gameQuery.SoundWrapper("sound/Invisible.mp3"),
@@ -232,7 +233,7 @@ $(function(){
 					.fadeTo(1000, 1);
 				setTimeout(function() {
 					music.game.stop();
-					music.victory.play(true);
+					music.credits.play(true);
 				}, 200);
 			} else {
 				$("#select-button")
