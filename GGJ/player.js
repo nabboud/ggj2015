@@ -1,4 +1,5 @@
 function Player(node){
+  var SUSPICION_MAX = 24; // The game will end at MAX + 1
 
 	this.node = node;
 	//this.animations = animations;
@@ -152,6 +153,10 @@ function Player(node){
 	this.increaseSuspicion = function(value) {
 		value = parseInt(value);
 		this.suspicion += value;
+		if (this.suspicion > SUSPICION_MAX) {
+			gameOver = true;
+			console.log('gameover');
+		}
 	}
 	
 	return true;
