@@ -43,10 +43,9 @@ function Crowd(node) {
     var s = 0;
     var speed = player.speed;
     var x = player.node.x();
-    if (player.speed >= SUSPICION_VELOCITY) {
-      s += 1;
-    }
-    if (x >= (this.lowerX() - SUSPICION_RANGE) && x <= (this.upperX() + SUSPICION_RANGE)) {
+    var tooFast = (player.speed >= SUSPICION_VELOCITY);
+    var tooClose = (x >= (this.lowerX() - SUSPICION_RANGE) && x <= (this.upperX() + SUSPICION_RANGE));
+    if (tooFast && tooClose) {
       s += 1;
     }
     return s;
