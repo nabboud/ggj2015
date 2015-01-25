@@ -22,7 +22,7 @@ function NPC(node, x) {
     return url;
   }
 
-  this.forward = true;
+  this.forward = Math.floor(Math.random() * 2) % 2 == 1 ? true : false;
   this.spriteIndex = Math.floor(Math.random() * SPRITE_IMAGES.length);
   this.spriteAnimation = new $.gQ.Animation({imageURL: this.spriteImageURL(), numberOfFrame: 1, delta: 52, rate: 60, type: $.gQ.ANIMATION_VERTICAL});
 
