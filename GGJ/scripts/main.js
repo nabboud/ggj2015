@@ -40,28 +40,28 @@ $(function(){
 	// Aniomations declaration: 
 	
 	// The background:
-	var background1 = new $.gQ.Animation({imageURL: "images/background1.png"});
-	var background2 = new $.gQ.Animation({imageURL: "images/background2.png"});
+	var background1 = new $.gQ.Animation({imageURL: "images/background/background1.png"});
+	var background2 = new $.gQ.Animation({imageURL: "images/background/background2.png"});
  
 	
 	// Player space shipannimations:
-	playerAnimation["idle-forward"]	 = new $.gQ.Animation({imageURL: "images/player-walk-forward.png"});
-	playerAnimation["idle-backward"] = new $.gQ.Animation({imageURL: "images/player-walk-backward.png"});
+	playerAnimation["idle-forward"]	 = new $.gQ.Animation({imageURL: "images/player/player-walk-forward.png"});
+	playerAnimation["idle-backward"] = new $.gQ.Animation({imageURL: "images/player/player-walk-backward.png"});
 
-	playerAnimation["walk-forward"]	 = new $.gQ.Animation({imageURL: "images/player-walk-forward.png" , numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
-	playerAnimation["walk-backward"] = new $.gQ.Animation({imageURL: "images/player-walk-backward.png", numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["walk-forward"]	 = new $.gQ.Animation({imageURL: "images/player/player-walk-forward.png" , numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["walk-backward"] = new $.gQ.Animation({imageURL: "images/player/player-walk-backward.png", numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
 
-	playerAnimation["run-forward"]	 = new $.gQ.Animation({imageURL: "images/player-run-forward.png" , numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
-	playerAnimation["run-backward"]	 = new $.gQ.Animation({imageURL: "images/player-run-backward.png", numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["run-forward"]	 = new $.gQ.Animation({imageURL: "images/player/player-run-forward.png" , numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["run-backward"]	 = new $.gQ.Animation({imageURL: "images/player/player-run-backward.png", numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
 	
-	playerAnimation["idle-forward-invisible"]	 = new $.gQ.Animation({imageURL: "images/player-walk-forward-invisible.png"});
-	playerAnimation["idle-backward-invisible"] = new $.gQ.Animation({imageURL: "images/player-walk-backward-invisible.png"});
+	playerAnimation["idle-forward-invisible"]	 = new $.gQ.Animation({imageURL: "images/player/player-walk-forward-invisible.png"});
+	playerAnimation["idle-backward-invisible"] = new $.gQ.Animation({imageURL: "images/player/player-walk-backward-invisible.png"});
 
-	playerAnimation["walk-forward-invisible"]	 = new $.gQ.Animation({imageURL: "images/player-walk-forward-invisible.png" , numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
-	playerAnimation["walk-backward-invisible"] = new $.gQ.Animation({imageURL: "images/player-walk-backward-invisible.png", numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["walk-forward-invisible"]	 = new $.gQ.Animation({imageURL: "images/player/player-walk-forward-invisible.png" , numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["walk-backward-invisible"] = new $.gQ.Animation({imageURL: "images/player/player-walk-backward-invisible.png", numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
 
-	playerAnimation["run-forward-invisible"]	 = new $.gQ.Animation({imageURL: "images/player-run-forward-invisible.png" , numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
-	playerAnimation["run-backward-invisible"]	 = new $.gQ.Animation({imageURL: "images/player-run-backward-invisible.png", numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["run-forward-invisible"]	 = new $.gQ.Animation({imageURL: "images/player/player-run-forward-invisible.png" , numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
+	playerAnimation["run-backward-invisible"]	 = new $.gQ.Animation({imageURL: "images/player/player-run-backward-invisible.png", numberOfFrame: 4, delta: 60, rate: 100, type: $.gQ.ANIMATION_HORIZONTAL});
 	
 	// Initialize the game:
 	$("#playground").playground({height: PLAYGROUND_HEIGHT, width: PLAYGROUND_WIDTH, keyTracker: true});
@@ -200,7 +200,7 @@ $(function(){
 					});
 					buttonScreen = true;
 				$("#welcomeScreen")
-					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/happyending.png); font-family: verdana, sans-serif;')
+					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/gameScreens/happyending.png); font-family: verdana, sans-serif;')
 					.fadeTo(1000, 1);
 
 			} else {
@@ -215,7 +215,7 @@ $(function(){
 					});
 					buttonScreen = true;
 				$("#welcomeScreen")
-					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/gameover.png); font-family: verdana, sans-serif;')
+					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/gameScreens/gameover.png); font-family: verdana, sans-serif;')
 					.fadeTo(1000, 1);
 				setTimeout(function() {
 					gameoverMusic.play();
