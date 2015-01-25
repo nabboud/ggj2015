@@ -163,6 +163,7 @@ $(function(){
 
   // Generate the crowd NPCs
   if (crowdOn) {
+  	$("#crowd")[0].crowd = new Crowd($("#crowd"));
     var px = -1 * Math.floor((Math.random() * PLAYGROUND_WIDTH) + 1); // \start the crowd off-screen
     var npcCount = Math.floor((Math.random() * 4) + 1) + 1;
     for (var i = 0; i < npcCount; i++) {
@@ -174,10 +175,10 @@ $(function(){
         {animation: new $.gQ.Animation({imageURL: "images/npc.png", numberOfFrame: 1, delta: 52, rate: 60, type: $.gQ.ANIMATION_VERTICAL}), 
         posx: px + offset, posy: PLAYGROUND_HEIGHT - 120, width: w, height: h});
             $('#' + name).addClass('npc');
-      $('#' + name)[0].npc = new NPC($("#npc"));
+      $('#' + name)[0].npc = new NPC($('#' + name));
+      $('#crowd')[0].crowd.add($('#' + name)[0].npc);
     }
   }
-
 
 	//this is the HUD for the player life and suspicion
 	$("#overlay").append("<div id='suspicionHUD'style='color: black; width: 100px; position: absolute; left: 0px; font-family: verdana, sans-serif;'></div><div id='timerHUD'style='color: black; width: 100px; position: absolute; right: 0px; font-family: verdana, sans-serif;'></div>")

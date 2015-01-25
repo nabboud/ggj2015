@@ -16,4 +16,21 @@ function Crowd(node) {
   	this.npcs.push(npc);
   }
 
+  this.lowerX = function() {
+    var x;
+    for (i = 0; i < this.npcs.length; i++) {
+      if (!x || this.npcs[i].node.x() < x)
+        x = this.npcs[i].node.x();
+    }
+    return x;
+  }
+
+  this.upperX = function() {
+    var x;
+    for (i = 0; i < this.npcs.length; i++) {
+      if (!x || this.npcs[i].node.x() > x)
+        x = this.npcs[i].node.x();
+    }
+    return x;
+  }
 }
