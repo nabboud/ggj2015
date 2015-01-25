@@ -10,7 +10,7 @@ function NPC(node, x) {
   this.node = $(node);
   this.node.addClass('npc');
   this.node.x(x);
-  this.node.y(PLAYGROUND_HEIGHT - 160);
+  this.node.y(PLAYGROUND_HEIGHT - 215 + Math.random()*10);
   this.node.wh(NPC_SPRITE_WIDTH, NPC_SPRITE_HEIGHT);
 
   // Pick the active sprite image for the NPC

@@ -74,7 +74,7 @@ $(function(){
 					.addGroup("actors", {width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT})
 					  	.addGroup("crowd", {width: PLAYGROUND_WIDTH, height:PLAYGROUND_HEIGHT})
 					  	.end()
-					  	.addGroup("player", {posx: 100, posy: PLAYGROUND_HEIGHT - 170, width: 60, height: 100})
+					  	.addGroup("player", {posx: 100, posy: PLAYGROUND_HEIGHT - 150, width: 60, height: 100})
 							.addSprite("playerBody",{animation: playerAnimation["idle-forward"], posx: 0, posy: 0, width: 60, height: 100})
 						.end()
 					.end()
