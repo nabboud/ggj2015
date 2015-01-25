@@ -34,7 +34,7 @@ function restartgame(){
 		$.playground().startGame(function(){
 			setTimeout(function() { music.game.play(true); }, 2500); // in-game music
 			buttonScreen = false;
-			$("#welcomeScreen").fadeTo(1000,0);
+			$("#welcomeScreen").fadeTo(1,0);
 			$("#timerHUD")[0].watch.start();
 		});
 		$("#select-button").hide();
@@ -162,7 +162,7 @@ $(function(){
   		if (getCookie('openingCutscene') != '1') {
 				setTimeout(function() {
 					$("#go-button").show();
-				}, 10000);
+				}, 1);
 				setCookie('openingCutscene', '1', 10*60);
 			}
 			else {
@@ -174,8 +174,9 @@ $(function(){
 			$.playground().startGame(function(){
 				setTimeout(function() { music.game.play(true); }, 1500); // in-game music
 				buttonScreen = false;
-				$("#welcome-screen").fadeTo(1000,0);
+
 				$("#welcome-screen img").hide();
+				$("#welcome-screen").fadeTo(1,0);
 				$("#timerHUD")[0].watch.start();
 			});
 			$(".start").hide();

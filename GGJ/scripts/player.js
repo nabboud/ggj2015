@@ -199,12 +199,6 @@ function Player(node){
 			gameOver = true;
 		}
 	};
-
-	var invisiBubbleHTML = '';
-	for (var i = 0; i < this.inviscount; i++){
-		invisiBubbleHTML += '<img src="images/HUD/in.png">'; 
-	}					
-	$('#invisibleBubHUD').html(invisiBubbleHTML);
 	
 	return true;
 }
