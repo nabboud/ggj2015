@@ -2,9 +2,15 @@ function NPC(node, x) {
   var NPC_SPRITE_WIDTH = 60;
   var NPC_SPRITE_HEIGHT = 150;
   var SPRITE_IMAGES = [
-    {forward: "images/npc/npc1_forward.png", back: "images/npc/npc1_back.png"},
-    {forward: "images/npc/npc2_forward.png", back: "images/npc/npc2_back.png"},
-    {forward: "images/npc/npc3_forward.png", back: "images/npc/npc3_back.png"}
+    {forward: "images/npc1_forward.png", back: "images/npc1_back.png"},
+    {forward: "images/npc2_forward.png", back: "images/npc2_back.png"},
+    {forward: "images/npc3_forward.png", back: "images/npc3_back.png"},
+    {forward: "images/npc1_forward_e.png", back: "images/npc1_back.png"},
+    {forward: "images/npc2_forward_e.png", back: "images/npc2_back.png"},
+    {forward: "images/npc3_forward_e.png", back: "images/npc3_back.png"},
+    {forward: "images/npc1_forward_s.png", back: "images/npc1_back.png"},
+    {forward: "images/npc2_forward_s.png", back: "images/npc2_back.png"},
+    {forward: "images/npc3_forward_s.png", back: "images/npc3_back.png"}
   ];
 
   this.node = $(node);

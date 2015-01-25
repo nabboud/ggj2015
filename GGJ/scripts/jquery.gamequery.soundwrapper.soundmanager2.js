@@ -35,7 +35,7 @@
             };
 
             // plays the sound if this.ready == true
-            this.play  = function(){
+            this.play  = function(loop){
                 if(loop){
                     this.sound.play({
                         onfinish: function() {

@@ -13,13 +13,24 @@ var buttonScreen = true;
 var crowdOn = true; // include the crowd in the game
 var distanceTraved = 0;
 var gameDistance = 80000;
-
-// Some hellper functions : 
+var music = {
+	defeat: new $.gameQuery.SoundWrapper("sound/Defeat.mp3"),
+	game: new $.gameQuery.SoundWrapper("sound/Overdrive.mp3"),
+	victory: new $.gameQuery.SoundWrapper("sound/Victory.mp3")
+};
+var sounds = {
+	suspicion: new $.gameQuery.SoundWrapper("sound/Suspicion.mp3"),
+	timer: new $.gameQuery.SoundWrapper("sound/Timer Beep.mp3"),
+};
 
 // Function to restart the game:
 function restartgame(){
 	$("#select-button").click(function(){
 		$.playground().startGame(function(){
+			// Load the music
+			setTimeout(function() {
+				music.game.play(true);
+			}, 3000);
 			buttonScreen = false;
 			$("#welcomeScreen").fadeTo(1000,0);
 			$("#timerHUD")[0].watch.start();
@@ -37,7 +48,12 @@ function restartgame(){
 // --                                      the main declaration:                                                     --
 // --------------------------------------------------------------------------------------------------------------------
 $(function(){
-	// Aniomations declaration: 
+	// Load the music
+	setTimeout(function() {
+		music.game.play(true);
+	}, 3000);
+
+	// Animations declaration: 
 	
 	// The background:
 	var background1 = new $.gQ.Animation({imageURL: "images/background/background1.png"});
@@ -189,7 +205,6 @@ $(function(){
 
 		} else if (gameOver && !buttonScreen){
 			if (distanceTraved >= gameDistance){
-
 				$("#select-button")
 					.html('Replay')
 					.removeClass('start retry replay')
@@ -202,9 +217,11 @@ $(function(){
 				$("#welcomeScreen")
 					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/gameScreens/happyending.png); font-family: verdana, sans-serif;')
 					.fadeTo(1000, 1);
-
+				setTimeout(function() {
+					music.game.stop();
+					music.victory.play(true);
+				}, 200);
 			} else {
-				var gameoverMusic = new $.gameQuery.SoundWrapper("sound/Defeat.mp3", true);
 				$("#select-button")
 					.html('Retry')
 					.removeClass('start retry replay')
@@ -218,8 +235,9 @@ $(function(){
 					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/gameScreens/gameover.png); font-family: verdana, sans-serif;')
 					.fadeTo(1000, 1);
 				setTimeout(function() {
-					gameoverMusic.play();
-				}, 100);
+					music.game.stop();
+					music.defeat.play(true);
+				}, 200);
 			}
 		}
 	}, REFRESH_RATE);
