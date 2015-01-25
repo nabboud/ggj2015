@@ -8,6 +8,7 @@ var playerAnimation = new Array();
 
 // Game state
 var timeOfRespawn = 0;
+var onReplay = false;
 var gameOver = false;
 var buttonScreen = true;
 var crowdOn = true; // include the crowd in the game
@@ -27,6 +28,7 @@ var sounds = {
 
 // Function to restart the game:
 function restartgame(){
+	onReplay = true;
 	$("#select-button").click(function(){
 		$.playground().startGame(function(){
 			setTimeout(function() { music.game.play(true); }, 2500); // in-game music
@@ -38,9 +40,6 @@ function restartgame(){
 	});
 	window.location.reload();
 };
-
-
-// Mobile
 
 
 // --------------------------------------------------------------------------------------------------------------------
@@ -130,6 +129,13 @@ $(function(){
 	// this sets the id of the loading bar:
 	
 	//initialize the start button
+	if (!onReplay){
+		$("#select-button").hide();
+		setTimeout(function() {
+			 $("#select-button").show();
+		}, 25000);
+	}
+
 	$("#select-button").click(function(){
 		$.playground().startGame(function(){
 			setTimeout(function() { music.game.play(true); }, 1500); // in-game music
@@ -156,7 +162,7 @@ $(function(){
 	    	sounds.invisible.play();
 	    }
 
-			$("#suspicionHUD").html('<img src="images/HUD/susp-' + (Math.round($("#player")[0].player.suspicion/5) + 1) + '.png"</img>');
+			$("#suspicionHUD").html('<img src="images/HUD/susp-' + Math.min((Math.round($("#player")[0].player.suspicion/5) + 1), 5) + '.png"</img>');
 			console.log($("#player")[0].player.suspicion);
 			$("#speedHUD").html("speed: " + ($("#player")[0].player.speed).toFixed(2));
  			$('#timerHUD')[0].watch.updateTimer();
@@ -215,7 +221,7 @@ $(function(){
 			if (distanceTraved >= gameDistance){
 				gameOver = true;
 			}
-			$('#distanceHUD').html(((distanceTraved/gameDistance)*100 + 1).toFixed(0) + ' St');
+			$('#distanceHUD').html(((distanceTraved/gameDistance)*62 + 1).toFixed(0) + ' St');
 
 		} else if (gameOver && !buttonScreen){
 			if (distanceTraved >= gameDistance){
