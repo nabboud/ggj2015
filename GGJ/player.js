@@ -5,7 +5,7 @@ function Player(node){
 
 	this.grace = false;
 	this.replay = 3;
-	this.suspicion = 3; 
+	this.suspicion = 0; 
 	this.timer = 2000;
 	this.respawnTime = -1;
 	this.facingRight = true;

@@ -1,4 +1,5 @@
 var CROWD_NPC_LIMIT = 5;
+var SUSPICION_RANGE = 100;
 
 function Crowd(node) {
   this.node = $(node);
