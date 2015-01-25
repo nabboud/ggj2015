@@ -12,7 +12,7 @@ var gameOver = false;
 var buttonScreen = true;
 var crowdOn = true; // include the crowd in the game
 var distanceTraved = 0;
-var gameDistance = 50000;
+var gameDistance = 80000;
 
 // Some hellper functions : 
 
@@ -185,7 +185,7 @@ $(function(){
 			if (distanceTraved >= gameDistance){
 				gameOver = true;
 			}
-			$('#distanceHUD').html(((distanceTraved/gameDistance)*100).toFixed(3) + '%');
+			$('#distanceHUD').html(((distanceTraved/gameDistance)*100 + 1).toFixed(0) + ' St');
 
 		} else if (gameOver && !buttonScreen){
 			if (distanceTraved >= gameDistance){
