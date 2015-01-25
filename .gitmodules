@@ -1,0 +1,3 @@
+[submodule "GGJ/lib/gamequery"]
+	path = GGJ/lib/gamequery
+	url = https://github.com/onaluf/gameQuery.git
