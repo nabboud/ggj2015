@@ -1,3 +1,6 @@
 [submodule "GGJ/lib/gamequery"]
 	path = GGJ/lib/gamequery
 	url = https://github.com/onaluf/gameQuery.git
+[submodule "GGJ/lib/soundmanager2"]
+	path = GGJ/lib/soundmanager2
+	url = https://github.com/scottschiller/SoundManager2.git
