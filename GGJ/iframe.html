@@ -23,6 +23,7 @@
 				position: absolute;
 				left: 20px;
 				top: 345px;
+				z-index:200;
 			}
 
 			.replay {
@@ -82,6 +83,7 @@
 	<body>
 	<div id="playground" style="width: 800px; height: 400px; background: black;">
 		<div id="welcomeScreen" style="width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/gameScreens/opening.png); font-family: verdana, sans-serif;">
+		  <img src="images/cutscene/opening.gif" style="position:absolute;z-index:100;" />
 			<button id="select-button" class='start'>Start</button>
 		</div>
 	</div>
@@ -90,8 +92,11 @@
 	</audio>
 	<script>
 	$(document).ready(function() {
+		$('#welcomeScreen img').show();
+
 		$('#select-button').live('click', function () {
   		$('audio').animate({volume: 0.0}, 2500);
+  		$('#welcomeScreen img').hide();
   	});
   });
 	</script>
