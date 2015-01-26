@@ -238,17 +238,20 @@ $(function(){
 
 				distanceTraved += $("#player")[0].player.speed;
 
-      			if ($('#crowd')[0].crowd && $('#crowd')[0].crowd.upperX() < 0) {
-      				var chance = Math.floor(Math.random() * 20) % 20;
-	      			if (chance == 0) {
-	      				newCrowd(PLAYGROUND_WIDTH + 200);
-	      			}
-      			}
-      			else {
+  			if ($('#crowd')[0].crowd && $('#crowd')[0].crowd.upperX() < 0) {
+  				$('#crowd')[0].crowd = null;
+  			}
+  			else if (!$('#crowd')[0].crowd) {
+  				var chance = Math.floor(Math.random() * 20) % 20;
+    			if (chance == 0) {
+    				newCrowd(PLAYGROUND_WIDTH + 200);
+    			}
+  			}
+  			else {
 					$('.npc').each(function() {	
-	          			$(this).x(($(this).x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH);
-	      			});
-      			}
+        			$(this).x(($(this).x() - $("#player")[0].player.speed - PLAYGROUND_WIDTH) % (-2 * PLAYGROUND_WIDTH) + PLAYGROUND_WIDTH);
+    			});
+  			}
 			} else {
 				var nextpos = $("#player").x() + $("#player")[0].player.speed;
 				if(nextpos > 0){
