@@ -145,7 +145,7 @@ $(function(){
 			if ($('#crowd')[0].crowd) {
 		        var s = $('#crowd')[0].crowd.increasePlayerSuspsicion($('#player')[0].player);
 		        $('#player')[0].player.increaseSuspicion(s);
-		        if (s > 0) {
+		        if (s > 0 && !$('#player')[0].player.invisstate) {
 		        	sounds.suspicion.play();
 		        }
 		    }
