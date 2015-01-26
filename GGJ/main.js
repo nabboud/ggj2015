@@ -170,9 +170,9 @@ $(function(){
       var name = 'npc' + i;
       var w = 60;
       var h = 100;
-      var offset = Math.floor((Math.random() * 200) + 1) - 100;
+      px += Math.floor(Math.random() * 30) + 30;
       $("#crowd").addSprite(name);
-      $('#' + name)[0].npc = new NPC($('#' + name), px + offset);
+      $('#' + name)[0].npc = new NPC($('#' + name), px);
       $('#' + name).setAnimation($('#' + name)[0].npc.spriteAnimation);
       $('#crowd')[0].crowd.add($('#' + name)[0].npc);
     }
