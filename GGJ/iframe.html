@@ -25,6 +25,14 @@
 				top: 345px;
 				z-index:200;
 			}
+			#go-button {
+				cursor: pointer;
+				position: absolute;
+				right: 20px;
+				top: 345px;
+				z-index:200;
+				display:none;
+			}
 
 			.replay {
 				border: 3px solid #0c62f5;
@@ -76,29 +84,21 @@
 				position: relative;
 				top:5px;
 			}
+			#welcome-screen img { display:none; }
 
 
 		</style>
 	</head>
 	<body>
 	<div id="playground" style="width: 800px; height: 400px; background: black;">
-		<div id="welcomeScreen" style="width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/gameScreens/opening.png); font-family: verdana, sans-serif;">
+		<div id="welcome-screen" style="width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/gameScreens/opening.png); font-family: verdana, sans-serif;">
 		  <img src="images/cutscene/opening.gif" style="position:absolute;z-index:100;" />
 			<button id="select-button" class='start'>Start</button>
+			<button id="go-button" class='start'>Let's Go!</button>
 		</div>
 	</div>
-	<audio id="background-audio" loop autoplay="autoplay" style="display:none;">
+	<audio id="background-audio" loop style="display:none;">
 	  <source src="sound/Lovesick.mp3" type="audio/mpeg">
 	</audio>
-	<script>
-	$(document).ready(function() {
-		$('#welcomeScreen img').show();
-
-		$('#select-button').live('click', function () {
-  		$('audio').animate({volume: 0.0}, 2500);
-  		$('#welcomeScreen img').hide();
-  	});
-  });
-	</script>
 	</body>
 </html>

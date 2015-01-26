@@ -25,6 +25,7 @@ var sounds = {
 	suspicion: new $.gameQuery.SoundWrapper("sound/Suspicion.mp3"),
 	timer: new $.gameQuery.SoundWrapper("sound/Timer Beep.mp3"),
 };
+var openingCutscene = false;
 
 // Function to restart the game:
 function restartgame(){
@@ -41,6 +42,23 @@ function restartgame(){
 	window.location.reload();
 };
 
+function setCookie(cname, cvalue, seconds) {
+  var d = new Date();
+  d.setTime(d.getTime() + (seconds*1000));
+  var expires = "expires="+d.toUTCString();
+  document.cookie = cname + "=" + cvalue + "; " + expires;
+} 
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0; i<ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
+    }
+    return "";
+} 
 
 // --------------------------------------------------------------------------------------------------------------------
 // --                                      the main declaration:                                                     --
@@ -129,14 +147,6 @@ $(function(){
 
 	$("#timerHUD")[0].watch = new Watch($("#timerHUD"));
 	// this sets the id of the loading bar:
-	
-	//initialize the start button
-	if (!onReplay){
-		$("#select-button").hide();
-		setTimeout(function() {
-			 $("#select-button").show();
-		}, 25000);
-	}
 
 	var invisiBubbleHTML = '';
 	for (var i = 0; i < 3; i++){
@@ -144,14 +154,32 @@ $(function(){
 	}					
 	$('#invisibleBubHUD').html(invisiBubbleHTML);
 
-	$("#select-button").click(function(){
-		$.playground().startGame(function(){
-			setTimeout(function() { music.game.play(true); }, 1500); // in-game music
-			buttonScreen = false;
-			$("#welcomeScreen").fadeTo(1000,0);
-			$("#timerHUD")[0].watch.start();
-		});
-		$("#select-button").hide();
+	$(".start").click(function(){
+		if (!openingCutscene) {
+			$('#background-audio').attr('autoplay', 'autoplay');
+  		$('#welcome-screen img').show();
+  		$(this).hide();
+  		if (getCookie('openingCutscene') != '1') {
+				setTimeout(function() {
+					$("#go-button").show();
+				}, 10000);
+				setCookie('openingCutscene', '1', 10*60);
+			}
+			else {
+				$("#go-button").show();
+			}
+			openingCutscene = true;
+		}
+		else {
+			$.playground().startGame(function(){
+				setTimeout(function() { music.game.play(true); }, 1500); // in-game music
+				buttonScreen = false;
+				$("#welcome-screen").fadeTo(1000,0);
+				$("#welcome-screen img").hide();
+				$("#timerHUD")[0].watch.start();
+			});
+			$(".start").hide();
+		}
 	});
 	
 	// this is the function that control most of the game logic 
@@ -241,7 +269,7 @@ $(function(){
 						restartgame();
 					});
 					buttonScreen = true;
-				$("#welcomeScreen")
+				$("#welcome-screen")
 					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/cutscene/ending.gif); font-family: verdana, sans-serif;')
 					.fadeTo(1000, 1);
 				setTimeout(function() {
@@ -258,7 +286,7 @@ $(function(){
 						restartgame();
 					});
 					buttonScreen = true;
-				$("#welcomeScreen")
+				$("#welcome-screen")
 					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/gameScreens/gameover.png); font-family: verdana, sans-serif;')
 					.fadeTo(1000, 1);
 				setTimeout(function() {
