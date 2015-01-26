@@ -85,5 +85,15 @@
 			<button id="select-button" class='start'>Start</button>
 		</div>
 	</div>
+	<audio id="background-audio" loop autoplay="autoplay" style="display:none;">
+	  <source src="sound/Lovesick.mp3" type="audio/mpeg">
+	</audio>
+	<script>
+	$(document).ready(function() {
+		$('#select-button').live('click', function () {
+  		$('audio').animate({volume: 0.0}, 3000);
+  	});
+  });
+	</script>
 	</body>
 </html>
