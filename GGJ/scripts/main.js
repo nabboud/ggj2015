@@ -157,7 +157,7 @@ $(function(){
 	$(".start").click(function(){
 		if (!openingCutscene) {
 			$('#background-audio').attr('autoplay', 'autoplay');
-  		$('#welcome-screen img').show();
+  		$('#welcome-screen').append('<img src="images/cutscene/opening.gif?' + (new Date()).getTime() + '" style="position:absolute;z-index:100;" />');
   		$(this).hide();
   		if (getCookie('openingCutscene') != '1') {
 				setTimeout(function() {
@@ -175,7 +175,7 @@ $(function(){
 				setTimeout(function() { music.game.play(true); }, 1500); // in-game music
 				buttonScreen = false;
 
-				$("#welcome-screen img").hide();
+				$("#welcome-screen img").remove();
 				$("#welcome-screen").fadeTo(1,0);
 				$("#timerHUD")[0].watch.start();
 			});
