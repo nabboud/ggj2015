@@ -207,6 +207,7 @@ $(function(){
 					.fadeTo(1000, 1);
 
 			} else {
+				var gameoverMusic = new $.gameQuery.SoundWrapper("sound/Defeat.mp3", true);
 				$("#select-button")
 					.html('Retry')
 					.removeClass('start retry replay')
@@ -219,6 +220,9 @@ $(function(){
 				$("#welcomeScreen")
 					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/gameover.png); font-family: verdana, sans-serif;')
 					.fadeTo(1000, 1);
+				setTimeout(function() {
+					gameoverMusic.play();
+				}, 100);
 			}
 		}
 	}, REFRESH_RATE);
