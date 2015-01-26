@@ -228,7 +228,7 @@ $(function(){
 					});
 					buttonScreen = true;
 				$("#welcomeScreen")
-					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/gameScreens/happyending.png); font-family: verdana, sans-serif;')
+					.attr('style', 'width: 800px; height: 400px; position: absolute; z-index: 100; background-image: url(images/cutscene/ending.gif); font-family: verdana, sans-serif;')
 					.fadeTo(1000, 1);
 				setTimeout(function() {
 					music.game.stop();
