@@ -27,10 +27,7 @@ var sounds = {
 function restartgame(){
 	$("#select-button").click(function(){
 		$.playground().startGame(function(){
-			// Load the music
-			setTimeout(function() {
-				music.game.play(true);
-			}, 3000);
+			setTimeout(function() { music.game.play(true); }, 2500); // in-game music
 			buttonScreen = false;
 			$("#welcomeScreen").fadeTo(1000,0);
 			$("#timerHUD")[0].watch.start();
@@ -48,10 +45,6 @@ function restartgame(){
 // --                                      the main declaration:                                                     --
 // --------------------------------------------------------------------------------------------------------------------
 $(function(){
-	// Load the music
-	setTimeout(function() {
-		music.game.play(true);
-	}, 3000);
 
 	// Animations declaration: 
 	
@@ -138,6 +131,7 @@ $(function(){
 	//initialize the start button
 	$("#select-button").click(function(){
 		$.playground().startGame(function(){
+			setTimeout(function() { music.game.play(true); }, 1500); // in-game music
 			buttonScreen = false;
 			$("#welcomeScreen").fadeTo(1000,0);
 			$("#timerHUD")[0].watch.start();
