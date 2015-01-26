@@ -19,6 +19,7 @@ var music = {
 	victory: new $.gameQuery.SoundWrapper("sound/Victory.mp3")
 };
 var sounds = {
+	invisible: new $.gameQuery.SoundWrapper("sound/Invisible.mp3"),
 	suspicion: new $.gameQuery.SoundWrapper("sound/Suspicion.mp3"),
 	timer: new $.gameQuery.SoundWrapper("sound/Timer Beep.mp3"),
 };
@@ -90,8 +91,7 @@ $(function(){
 					.addGroup("overlay",{width: PLAYGROUND_WIDTH, height: PLAYGROUND_HEIGHT});
 	
 	$("#player")[0].player = new Player($("#player"));
-	
-
+	var inviscount = $("#player")[0].player.inviscount;
 
   // Generate the crowd NPCs
   var newCrowd = function(px) {
@@ -143,12 +143,17 @@ $(function(){
 	$.playground().registerCallback(function(){
 		if(!gameOver){
 			if ($('#crowd')[0].crowd) {
-		        var s = $('#crowd')[0].crowd.increasePlayerSuspsicion($('#player')[0].player);
-		        $('#player')[0].player.increaseSuspicion(s);
-		        if (s > 0 && !$('#player')[0].player.invisstate) {
-		        	sounds.suspicion.play();
-		        }
-		    }
+	        var s = $('#crowd')[0].crowd.increasePlayerSuspsicion($('#player')[0].player);
+	        $('#player')[0].player.increaseSuspicion(s);
+	        if (s > 0 && !$('#player')[0].player.invisstate) {
+	        	sounds.suspicion.play();
+	        }
+	    }
+
+	    if (inviscount != $("#player")[0].player.inviscount) {
+	    	inviscount = $("#player")[0].player.inviscount;
+	    	sounds.invisible.play();
+	    }
 
 			$("#suspicionHUD").html("suspicion: "+$("#player")[0].player.suspicion);
 			$("#speedHUD").html("speed: " + ($("#player")[0].player.speed).toFixed(2));
