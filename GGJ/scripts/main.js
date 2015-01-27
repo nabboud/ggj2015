@@ -178,6 +178,7 @@ $(function(){
 				$("#welcome-screen img").remove();
 				$("#welcome-screen").fadeTo(1,0);
 				$("#timerHUD")[0].watch.start();
+				$('audio').animate({volume: 0.0}, 2500);
 			});
 			$(".start").hide();
 		}
